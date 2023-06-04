@@ -11,7 +11,6 @@ const RoundGraph = ({ outWidth, top, bottom, left, right }) => {
               key={i}
               style={{
                 display: "flex",
-                // padding: 20,
                 alignItems:
                   left === 0 && top && bottom && right === 0
                     ? "center"
@@ -35,13 +34,12 @@ const RoundGraph = ({ outWidth, top, bottom, left, right }) => {
                     : "center",
                 position: "absolute",
                 borderRadius: 999,
-                border: "2px solid black",
+                border: i === 0 ? "2px solid green" : "2px solid black",
                 width: (outWidth / 7) * (i + 1),
                 aspectRatio: 1,
                 alignSelf: "center",
                 zIndex: 3,
                 backgroundColor: i === 0 ? "yellow" : "transparent",
-                // backgroundColor: "transparent",
                 color: "black",
                 fontSize: outWidth / 14 - 6,
               }}
@@ -50,7 +48,6 @@ const RoundGraph = ({ outWidth, top, bottom, left, right }) => {
                 <div
                   style={{
                     width: outWidth / 14,
-                    height: outWidth / 14,
                     textAlign: "center",
                   }}
                 >
