@@ -7,7 +7,7 @@ export default function App() {
   const screenRef = useRef(null);
   const width = 800;
   const outWidth = width - 200;
-  const [top, setTop] = useState(3);
+  const [top, setTop] = useState(0);
   const [left, setLeft] = useState(0);
   const [right, setRight] = useState(0);
   const [bottom, setBottom] = useState(0);
