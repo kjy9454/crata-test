@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { toPng } from "html-to-image";
 import jsPDF from "jspdf";
 import RoundGraph from "./components/roundGraph";
+import ResultForPDF from "./components/ResultForPDF";
 
 export default function App() {
   const screenRef = useRef(null);
@@ -13,7 +14,6 @@ export default function App() {
   const [left, setLeft] = useState(0);
   const [right, setRight] = useState(0);
   const [bottom, setBottom] = useState(0);
-  const [status, setStatus] = useState("hidden");
 
   const test = "test";
 
@@ -30,44 +30,41 @@ export default function App() {
   }, []);
 
   const handleDownloadPDF = () => {
-    setStatus("flex");
+    const input = document.getElementById("pdf-content");
+    console.log(11111, input);
+    toPng(input)
+      .then((dataUrl) => {
+        console.log(22222);
+        const img = new Image();
+        img.src = dataUrl;
+        img.onload = function () {
+          const pdf = new jsPDF({
+            orientation: "landscape",
+            unit: "px",
+            format: "a3",
+          });
+          console.log(33333);
+          const imgHeight =
+            (pdf.internal.pageSize.getWidth() / img.width) * img.height;
+          pdf.addImage(
+            img,
+            "PNG",
+            0,
+            0,
+            pdf.internal.pageSize.getWidth(),
+            imgHeight
+          );
 
-    setTimeout(() => {
-      const input = document.getElementById("pdf-content");
-
-      toPng(input)
-        .then((dataUrl) => {
-          const img = new Image();
-          img.src = dataUrl;
-          img.onload = function () {
-            const pdf = new jsPDF({
-              orientation: "landscape",
-              unit: "px",
-              format: "a3",
-            });
-
-            const imgHeight =
-              (pdf.internal.pageSize.getWidth() / img.width) * img.height;
-            pdf.addImage(
-              img,
-              "PNG",
-              0,
-              0,
-              pdf.internal.pageSize.getWidth(),
-              imgHeight
-            );
-            pdf.save(`${test}.pdf`);
-          };
-        })
-        .finally(() => setStatus("hidden"))
-        .catch((error) => {
-          console.error("oops, something went wrong!", error);
-        });
-    }, 1000);
+          pdf.save(`${test}.pdf`);
+        };
+      })
+      .catch((error) => {
+        console.error("oops, something went wrong!", error);
+      });
   };
 
   return (
-    <>
+    <div className="overflow-hidden w-screen h-screen">
       <div className="md:hidden flex-col">
         <div className="flex flex-col">
           <div
@@ -323,17 +320,16 @@ export default function App() {
         </button>
       </div>
       {/* web */}
-      <div className={`${status} md:flex flex-col`}>
+      <div className={`hidden md:flex flex-col`}>
         <div
           ref={screenRef}
-          id="pdf-content"
           // className={`aspect-a3 bg-red-300`}
           style={{ height: 1000, width: (1000 / 297) * 420 }}
         >
           <div className="flex">
             <div
               style={{
-                // backgroundColor: "white",
+                backgroundColor: "white",
                 display: "flex",
                 width,
                 height: width,
@@ -537,7 +533,7 @@ export default function App() {
             </div>
             <div
               style={{
-                // backgroundColor: "white",
+                backgroundColor: "white",
                 color: "black",
                 padding: 20,
                 width,
@@ -583,6 +579,27 @@ export default function App() {
           PDF DOWNLOAD
         </button>
       </div>
-    </>
+      <div
+        ref={screenRef}
+        id="pdf-content"
+        style={{
+          // height: 1000,
+          // width: (1000 / 297) * 420,
+          height: (mobWidth / 420) * 297,
+          width: mobWidth,
+          // zIndex: -1,
+          position: "absolute",
+          // top: 0,
+        }}
+      >
+        <ResultForPDF
+          top={top}
+          left={left}
+          bottom={bottom}
+          right={right}
+          width={mobWidth}
+        />
+      </div>
+    </div>
   );
 }
