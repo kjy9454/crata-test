@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { toPng } from "html-to-image";
 import jsPDF from "jspdf";
 import RoundGraph from "./components/roundGraph";
+import moment from "moment";
+import { convertDateToAuraSoma } from "./utils/convertToAuraSoma";
 
 export default function App() {
   const screenRef = useRef(null);
@@ -9,10 +11,14 @@ export default function App() {
   const mobOutWidth = mobWidth - 100;
   const width = 800;
   const outWidth = width - 200;
+  const [colorSize, setColorSize] = useState(3);
   const [top, setTop] = useState(0);
   const [left, setLeft] = useState(0);
   const [right, setRight] = useState(0);
   const [bottom, setBottom] = useState(0);
+  const [birthDate, setBirthDate] = useState(moment().format("YYYY-MM-DD"));
+
+  const auraSoma = convertDateToAuraSoma(moment(birthDate).format("YYYYMMDD"));
   const [status, setStatus] = useState("hidden");
 
   const test = "test";
@@ -80,12 +86,21 @@ export default function App() {
               justifyContent: "center",
             }}
           >
+            <div style={{ position: "absolute", zIndex: 999, color: "black" }}>
+              <input
+                style={{
+                  border: "1px solid black",
+                }}
+                type="date"
+                value={birthDate}
+                onChange={(e) => setBirthDate(e.target.value)}
+              />
+              <p>오라소마 기준 날짜</p>
+            </div>
             <RoundGraph
-              outWidth={mobOutWidth}
-              top={top}
-              bottom={bottom}
-              left={left}
-              right={right}
+              outWidth={outWidth}
+              colorSize={colorSize}
+              {...auraSoma}
             />
 
             <div
@@ -284,27 +299,80 @@ export default function App() {
             }}
           >
             여기에 결과 글자
+            <div style={{ margin: 10 }}>오라소마 크기</div>
+            {new Array(7).fill("").map((x, i) => (
+              <button
+                key={i}
+                style={{
+                  backgroundColor: "gray",
+                  width: 30,
+                  height: 30,
+                  marginLeft: 10,
+                }}
+                onClick={() => {
+                  setColorSize(i ? i + 1 : 0);
+                }}
+              >
+                {i}
+              </button>
+            ))}
             <div>top</div>
             {new Array(7).fill("").map((x, i) => (
-              <button key={i} onClick={() => setTop(i === 0 ? i : i + 1)}>
+              <button
+                style={{
+                  backgroundColor: "gray",
+                  width: 30,
+                  height: 30,
+                  marginLeft: 10,
+                }}
+                key={i}
+                onClick={() => setTop(i === 0 ? i : i + 1)}
+              >
                 {i}
               </button>
             ))}
             <div>bottom</div>
             {new Array(7).fill("").map((x, i) => (
-              <button key={i} onClick={() => setBottom(i === 0 ? i : i + 1)}>
+              <button
+                style={{
+                  backgroundColor: "gray",
+                  width: 30,
+                  height: 30,
+                  marginLeft: 10,
+                }}
+                key={i}
+                onClick={() => setBottom(i === 0 ? i : i + 1)}
+              >
                 {i}
               </button>
             ))}
             <div>left</div>
             {new Array(7).fill("").map((x, i) => (
-              <button key={i} onClick={() => setLeft(i === 0 ? i : i + 1)}>
+              <button
+                style={{
+                  backgroundColor: "gray",
+                  width: 30,
+                  height: 30,
+                  marginLeft: 10,
+                }}
+                key={i}
+                onClick={() => setLeft(i === 0 ? i : i + 1)}
+              >
                 {i}
               </button>
             ))}
             <div>right</div>
             {new Array(7).fill("").map((x, i) => (
-              <button key={i} onClick={() => setRight(i === 0 ? i : i + 1)}>
+              <button
+                style={{
+                  backgroundColor: "gray",
+                  width: 30,
+                  height: 30,
+                  marginLeft: 10,
+                }}
+                key={i}
+                onClick={() => setRight(i === 0 ? i : i + 1)}
+              >
                 {i}
               </button>
             ))}
@@ -324,6 +392,17 @@ export default function App() {
       </div>
       {/* web */}
       <div className={`${status} md:flex flex-col`}>
+        <div style={{ position: "absolute", zIndex: 999, color: "black" }}>
+          <input
+            style={{
+              border: "1px solid black",
+            }}
+            type="date"
+            value={birthDate}
+            onChange={(e) => setBirthDate(e.target.value)}
+          />
+          <p>오라소마 기준 날짜</p>
+        </div>
         <div
           ref={screenRef}
           id="pdf-content"
@@ -342,15 +421,22 @@ export default function App() {
                 borderRight: "dashed 1px black",
               }}
             >
-              <RoundGraph
-                outWidth={outWidth}
-                top={top}
-                bottom={bottom}
-                left={left}
-                right={right}
+              <div
+                style={{
+                  width,
+                  height: 2,
+                }}
               />
-
-              <div style={{ width, height: 2, backgroundColor: "black" }} />
+              <div
+                style={{
+                  width,
+                  height: 2,
+                  backgroundColor: "black",
+                  zIndex: 6,
+                  position: "absolute",
+                  alignSelf: "center",
+                }}
+              />
               <div
                 style={{
                   height: width,
@@ -358,10 +444,14 @@ export default function App() {
                   backgroundColor: "black",
                   position: "absolute",
                   left: width / 2 - 1,
-                  zIndex: 2,
+                  zIndex: 6,
                 }}
               />
-
+              <RoundGraph
+                outWidth={outWidth}
+                colorSize={colorSize}
+                {...auraSoma}
+              />
               {Boolean(top) && Boolean(left) ? (
                 <svg
                   width={(left * outWidth) / 14}
@@ -544,27 +634,80 @@ export default function App() {
               }}
             >
               여기에 결과 글자
+              <div style={{ margin: 10 }}>오라소마 크기</div>
+              {new Array(7).fill("").map((x, i) => (
+                <button
+                  key={i}
+                  style={{
+                    backgroundColor: "lightgray",
+                    width: 30,
+                    height: 30,
+                    marginLeft: 10,
+                  }}
+                  onClick={() => {
+                    setColorSize(i ? i + 1 : 0);
+                  }}
+                >
+                  {i}
+                </button>
+              ))}
               <div>top</div>
               {new Array(7).fill("").map((x, i) => (
-                <button key={i} onClick={() => setTop(i === 0 ? i : i + 1)}>
+                <button
+                  key={i}
+                  style={{
+                    backgroundColor: "lightgray",
+                    width: 30,
+                    height: 30,
+                    marginLeft: 10,
+                  }}
+                  onClick={() => setTop(i === 0 ? i : i + 1)}
+                >
                   {i}
                 </button>
               ))}
               <div>bottom</div>
               {new Array(7).fill("").map((x, i) => (
-                <button key={i} onClick={() => setBottom(i === 0 ? i : i + 1)}>
+                <button
+                  key={i}
+                  style={{
+                    backgroundColor: "lightgray",
+                    width: 30,
+                    height: 30,
+                    marginLeft: 10,
+                  }}
+                  onClick={() => setBottom(i === 0 ? i : i + 1)}
+                >
                   {i}
                 </button>
               ))}
               <div>left</div>
               {new Array(7).fill("").map((x, i) => (
-                <button key={i} onClick={() => setLeft(i === 0 ? i : i + 1)}>
+                <button
+                  key={i}
+                  style={{
+                    backgroundColor: "lightgray",
+                    width: 30,
+                    height: 30,
+                    marginLeft: 10,
+                  }}
+                  onClick={() => setLeft(i === 0 ? i : i + 1)}
+                >
                   {i}
                 </button>
               ))}
               <div>right</div>
               {new Array(7).fill("").map((x, i) => (
-                <button key={i} onClick={() => setRight(i === 0 ? i : i + 1)}>
+                <button
+                  key={i}
+                  style={{
+                    backgroundColor: "lightgray",
+                    width: 30,
+                    height: 30,
+                    marginLeft: 10,
+                  }}
+                  onClick={() => setRight(i === 0 ? i : i + 1)}
+                >
                   {i}
                 </button>
               ))}

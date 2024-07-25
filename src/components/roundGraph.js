@@ -1,6 +1,6 @@
 import React from "react";
 
-const RoundGraph = ({ outWidth, top, bottom, left, right }) => {
+const RoundGraph = ({ outWidth, colorSize, backgroundColor, borderColor }) => {
   return (
     <>
       {Array(7)
@@ -11,52 +11,39 @@ const RoundGraph = ({ outWidth, top, bottom, left, right }) => {
               key={i}
               style={{
                 display: "flex",
-                alignItems:
-                  left === 0 && top && bottom && right === 0
-                    ? "center"
-                    : (right === 0 && top && bottom) ||
-                      (left === 0 && top && bottom)
-                    ? "center"
-                    : (top === 0 && (left || right)) ||
-                      (bottom && !(top && left && right))
-                    ? "flex-start"
-                    : (top === 0 && (left || right)) ||
-                      (top && !(bottom && left && right))
-                    ? "flex-end"
-                    : "center",
-                justifyContent:
-                  top === 0 || bottom === 0
-                    ? "center"
-                    : left === 0 && top && bottom
-                    ? "flex-start"
-                    : right === 0 && top && bottom
-                    ? "flex-end"
-                    : "center",
+                alignItems: "center",
+                justifyContent: "center",
                 position: "absolute",
                 borderRadius: 999,
-                border: i === 0 ? "2px solid green" : "2px solid black",
+                border: `${i === colorSize - 1 ? 4 : 2}px solid ${
+                  i === colorSize - 1 && borderColor ? borderColor : "black"
+                }`,
                 width: (outWidth / 7) * (i + 1),
                 aspectRatio: 1,
                 alignSelf: "center",
-                zIndex: 3,
-                backgroundColor: i === 0 ? "yellow" : "transparent",
+                backgroundColor:
+                  i < colorSize && backgroundColor ? backgroundColor : "white",
                 color: "black",
-                fontSize: outWidth / 14 - 6,
+                fontSize: 40,
+                zIndex: 6 - i,
               }}
-            >
-              {i === 0 && (
-                <div
-                  style={{
-                    width: outWidth / 14,
-                    textAlign: "center",
-                  }}
-                >
-                  A
-                </div>
-              )}
-            </div>
+            ></div>
           );
         })}
+      <div
+        style={{
+          position: "absolute",
+          borderRadius: 999,
+          zIndex: 999,
+          color: "black",
+          fontSize: 30,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div>AB</div>
+      </div>
     </>
   );
 };
