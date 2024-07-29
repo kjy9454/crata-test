@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { toPng } from "html-to-image";
 import jsPDF from "jspdf";
 import RoundGraph from "./components/roundGraph";
-import ResultForPDF from "./components/ResultForPDF";
+// import ResultForPDF from "./components/ResultForPDF";
 import moment from "moment";
 import { convertDateToAuraSoma } from "./utils/convertToAuraSoma";
 
@@ -735,15 +735,7 @@ export default function App() {
           position: "absolute",
           // top: 0,
         }}
-      >
-        <ResultForPDF
-          top={top}
-          left={left}
-          bottom={bottom}
-          right={right}
-          width={mobWidth}
-        />
-      </div>
+      ></div>
     </div>
   );
 }
