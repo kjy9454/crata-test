@@ -70,233 +70,252 @@ export default function Result() {
       return;
     }
     await html2canvas(input, {
+      scale: 2,
       windowWidth: document.body.scrollWidth,
       windowHeight: document.body.scrollHeight,
-    }).then(function (canvas) {
-      // document.body.appendChild(canvas);
-      const imgData = canvas.toDataURL("image/png");
-      const imgWidth = canvas.width;
-      const imgHeight = canvas.height;
-      const pdf = new jsPDF("l", "px", [imgWidth, imgHeight]);
-      pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+    }).then((canvas) => {
+      let imgData = canvas.toDataURL("image/png");
+
+      let imgWidth = 210;
+      let pageHeight = imgWidth * 1.414;
+      let imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let heightLeft = imgHeight;
+
+      let pdf = new jsPDF("p", "mm");
+      let position = 0;
+
+      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 1) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+
       pdf.save(`${test}.pdf`);
     });
   };
 
   return (
-    <div>
-      <div style={{ position: "absolute", zIndex: 999, color: "black" }}>
-        <input
-          style={{
-            border: "1px solid black",
-          }}
-          type="date"
-          value={birthDate}
-          onChange={(e) => setBirthDate(e.target.value)}
-        />
-        <p>오라소마 기준 날짜</p>
-      </div>
-      <div id="pdf-content" ref={screenRef} style={{ display: "flex" }}>
-        <div
-          style={{
-            backgroundColor: "white",
-            display: "flex",
-            width,
-            height: width,
-            alignItems: "center",
-            justifyContent: "center",
-            borderRight: "dashed 1px black",
-          }}
-        >
-          <div
+    <div style={{ display: "flex" }}>
+      <div>
+        <div style={{ position: "absolute", zIndex: 999, color: "black" }}>
+          <input
             style={{
-              width,
-              height: 2,
+              border: "1px solid black",
             }}
+            type="date"
+            value={birthDate}
+            onChange={(e) => setBirthDate(e.target.value)}
           />
-          <div
-            style={{
-              width,
-              height: 2,
-              backgroundColor: "black",
-              zIndex: 6,
-              position: "absolute",
-              alignSelf: "center",
-            }}
-          />
-          <div
-            style={{
-              height: width,
-              width: 2,
-              backgroundColor: "black",
-              position: "absolute",
-              left: width / 2 - 1,
-              zIndex: 6,
-            }}
-          />
-          <RoundGraph outWidth={outWidth} colorSize={colorSize} {...auraSoma} />
-          {Boolean(top) && Boolean(left) ? (
-            <div
-              style={{
-                position: "absolute",
-                top: topLeftTop,
-                left: topLeftLeft,
-                width: topLeftLength,
-                height: "2px",
-                zIndex: 30,
-                overflow: "hidden",
-                transform: `rotate(${adjustedTopLeftAngle}deg)`,
-                transformOrigin: "0 0", // 회전 기준점 설정
-                backgroundColor: "red",
-              }}
-            />
-          ) : Boolean(left) ? (
-            <div
-              style={{
-                width: (left * outWidth) / 14,
-                height: 2,
-                backgroundColor: "red",
-                position: "absolute",
-                left: width / 2 - (left * outWidth) / 14,
-                zIndex: 30,
-              }}
-            />
-          ) : (
-            <div
-              style={{
-                width: 2,
-                height: (top * outWidth) / 14,
-                backgroundColor: "red",
-                position: "absolute",
-                top: top ? width / 2 - (top * outWidth) / 14 : 2,
-                zIndex: 30,
-              }}
-            />
-          )}
-          {Boolean(top) && Boolean(right) ? (
-            <div
-              style={{
-                position: "absolute",
-                top: topRightTop,
-                left: topRightLeft,
-                width: topRightLength,
-                height: "2px",
-                zIndex: 30,
-                overflow: "hidden",
-                transform: `rotate(${adjustedTopRightAngle}deg)`,
-                transformOrigin: "0 0", // 회전 기준점 설정
-                backgroundColor: "red",
-              }}
-            />
-          ) : Boolean(right) ? (
-            <div
-              style={{
-                width: (right * outWidth) / 14,
-                height: 2,
-                backgroundColor: "red",
-                position: "absolute",
-                left: width / 2,
-                zIndex: 30,
-              }}
-            />
-          ) : (
-            <div
-              style={{
-                width: 2,
-                height: (top * outWidth) / 14,
-                backgroundColor: "red",
-                position: "absolute",
-                top: top ? width / 2 - (top * outWidth) / 14 : 2,
-                zIndex: 30,
-              }}
-            />
-          )}
-          {Boolean(bottom) && Boolean(right) ? (
-            <div
-              style={{
-                position: "absolute",
-                top: bottomRightTop,
-                left: bottomRightLeft,
-                width: bottomRightLength,
-                height: "2px",
-                zIndex: 30,
-                overflow: "hidden",
-                transform: `rotate(${adjustedBottomRightAngle}deg)`,
-                transformOrigin: "0 0", // 회전 기준점 설정
-                backgroundColor: "red",
-              }}
-            />
-          ) : Boolean(right) ? (
-            <div
-              style={{
-                width: (right * outWidth) / 14,
-                height: 2,
-                backgroundColor: "red",
-                position: "absolute",
-                left: width / 2,
-                zIndex: 30,
-              }}
-            />
-          ) : (
-            <div
-              style={{
-                width: 2,
-                height: (bottom * outWidth) / 14,
-                backgroundColor: "red",
-                position: "absolute",
-                top: width / 2,
-                zIndex: 30,
-              }}
-            />
-          )}
-          {Boolean(bottom) && Boolean(left) ? (
-            <div
-              style={{
-                position: "absolute",
-                top: bottomLeftTop,
-                left: bottomLeftLeft,
-                width: bottomLeftLength,
-                height: "2px",
-                zIndex: 30,
-                overflow: "hidden",
-                transform: `rotate(${adjustedBottomLeftAngle}deg)`,
-                transformOrigin: "0 0", // 회전 기준점 설정
-                backgroundColor: "red",
-              }}
-            />
-          ) : Boolean(left) ? (
-            <div
-              style={{
-                width: (left * outWidth) / 14,
-                height: 2,
-                backgroundColor: "red",
-                position: "absolute",
-                left: width / 2 - (left * outWidth) / 14,
-                zIndex: 30,
-              }}
-            />
-          ) : (
-            <div
-              style={{
-                width: 2,
-                height: (bottom * outWidth) / 14,
-                backgroundColor: "red",
-                position: "absolute",
-                top: width / 2,
-                zIndex: 30,
-              }}
-            />
-          )}
+          <p>오라소마 기준 날짜</p>
         </div>
-        <div
-          style={{
-            backgroundColor: "white",
-            color: "black",
-            padding: 20,
-            width,
-          }}
-        >
-          여기에 결과 글자
+        <div id="pdf-content" ref={screenRef} style={{ width: width }}>
+          <div style={{ width: width, height: width * 1.414 }}>
+            <div
+              style={{
+                display: "flex",
+                width,
+                height: width,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <div
+                style={{
+                  width,
+                  height: 2,
+                }}
+              />
+              <div
+                style={{
+                  width,
+                  height: 2,
+                  backgroundColor: "black",
+                  zIndex: 6,
+                  position: "absolute",
+                  alignSelf: "center",
+                }}
+              />
+              <div
+                style={{
+                  height: width,
+                  width: 2,
+                  backgroundColor: "black",
+                  position: "absolute",
+                  left: width / 2 - 1,
+                  zIndex: 6,
+                }}
+              />
+              <RoundGraph
+                outWidth={outWidth}
+                colorSize={colorSize}
+                {...auraSoma}
+              />
+              {Boolean(top) && Boolean(left) ? (
+                <div
+                  style={{
+                    position: "absolute",
+                    top: topLeftTop,
+                    left: topLeftLeft,
+                    width: topLeftLength,
+                    height: "2px",
+                    zIndex: 30,
+                    overflow: "hidden",
+                    transform: `rotate(${adjustedTopLeftAngle}deg)`,
+                    transformOrigin: "0 0", // 회전 기준점 설정
+                    backgroundColor: "red",
+                  }}
+                />
+              ) : Boolean(left) ? (
+                <div
+                  style={{
+                    width: (left * outWidth) / 14,
+                    height: 2,
+                    backgroundColor: "red",
+                    position: "absolute",
+                    left: width / 2 - (left * outWidth) / 14,
+                    zIndex: 30,
+                  }}
+                />
+              ) : (
+                <div
+                  style={{
+                    width: 2,
+                    height: (top * outWidth) / 14,
+                    backgroundColor: "red",
+                    position: "absolute",
+                    top: top ? width / 2 - (top * outWidth) / 14 : 2,
+                    zIndex: 30,
+                  }}
+                />
+              )}
+              {Boolean(top) && Boolean(right) ? (
+                <div
+                  style={{
+                    position: "absolute",
+                    top: topRightTop,
+                    left: topRightLeft,
+                    width: topRightLength,
+                    height: "2px",
+                    zIndex: 30,
+                    overflow: "hidden",
+                    transform: `rotate(${adjustedTopRightAngle}deg)`,
+                    transformOrigin: "0 0", // 회전 기준점 설정
+                    backgroundColor: "red",
+                  }}
+                />
+              ) : Boolean(right) ? (
+                <div
+                  style={{
+                    width: (right * outWidth) / 14,
+                    height: 2,
+                    backgroundColor: "red",
+                    position: "absolute",
+                    left: width / 2,
+                    zIndex: 30,
+                  }}
+                />
+              ) : (
+                <div
+                  style={{
+                    width: 2,
+                    height: (top * outWidth) / 14,
+                    backgroundColor: "red",
+                    position: "absolute",
+                    top: top ? width / 2 - (top * outWidth) / 14 : 2,
+                    zIndex: 30,
+                  }}
+                />
+              )}
+              {Boolean(bottom) && Boolean(right) ? (
+                <div
+                  style={{
+                    position: "absolute",
+                    top: bottomRightTop,
+                    left: bottomRightLeft,
+                    width: bottomRightLength,
+                    height: "2px",
+                    zIndex: 30,
+                    overflow: "hidden",
+                    transform: `rotate(${adjustedBottomRightAngle}deg)`,
+                    transformOrigin: "0 0", // 회전 기준점 설정
+                    backgroundColor: "red",
+                  }}
+                />
+              ) : Boolean(right) ? (
+                <div
+                  style={{
+                    width: (right * outWidth) / 14,
+                    height: 2,
+                    backgroundColor: "red",
+                    position: "absolute",
+                    left: width / 2,
+                    zIndex: 30,
+                  }}
+                />
+              ) : (
+                <div
+                  style={{
+                    width: 2,
+                    height: (bottom * outWidth) / 14,
+                    backgroundColor: "red",
+                    position: "absolute",
+                    top: width / 2,
+                    zIndex: 30,
+                  }}
+                />
+              )}
+              {Boolean(bottom) && Boolean(left) ? (
+                <div
+                  style={{
+                    position: "absolute",
+                    top: bottomLeftTop,
+                    left: bottomLeftLeft,
+                    width: bottomLeftLength,
+                    height: "2px",
+                    zIndex: 30,
+                    overflow: "hidden",
+                    transform: `rotate(${adjustedBottomLeftAngle}deg)`,
+                    transformOrigin: "0 0", // 회전 기준점 설정
+                    backgroundColor: "red",
+                  }}
+                />
+              ) : Boolean(left) ? (
+                <div
+                  style={{
+                    width: (left * outWidth) / 14,
+                    height: 2,
+                    backgroundColor: "red",
+                    position: "absolute",
+                    left: width / 2 - (left * outWidth) / 14,
+                    zIndex: 30,
+                  }}
+                />
+              ) : (
+                <div
+                  style={{
+                    width: 2,
+                    height: (bottom * outWidth) / 14,
+                    backgroundColor: "red",
+                    position: "absolute",
+                    top: width / 2,
+                    zIndex: 30,
+                  }}
+                />
+              )}
+            </div>
+          </div>
+          <div
+            style={{
+              width: width,
+              height: width * 1.414,
+            }}
+          >
+            여기는 2페이지
+          </div>
         </div>
       </div>
       <div>
@@ -317,95 +336,96 @@ export default function Result() {
             {i}
           </button>
         ))}
-      </div>
-      <div>
-        <div style={{ margin: 10 }}>TOP</div>
-        {new Array(7).fill("a").map((x, i) => (
-          <button
-            key={i}
-            style={{
-              backgroundColor: "gray",
-              width: 30,
-              height: 30,
-              marginLeft: 10,
-            }}
-            onClick={() => {
-              setTop(i ? i + 1 : 0);
-            }}
-          >
-            {i}
-          </button>
-        ))}
-      </div>
-      <div>
-        <div style={{ margin: 10 }}>RIGHT</div>
-        {new Array(7).fill("a").map((x, i) => (
-          <button
-            key={i}
-            style={{
-              backgroundColor: "gray",
-              width: 30,
-              height: 30,
-              marginLeft: 10,
-            }}
-            onClick={() => {
-              setRight(i ? i + 1 : 0);
-            }}
-          >
-            {i}
-          </button>
-        ))}
-      </div>
-      <div>
-        <div style={{ margin: 10 }}>BOTTOM</div>
-        {new Array(7).fill("a").map((x, i) => (
-          <button
-            key={i}
-            style={{
-              backgroundColor: "gray",
-              width: 30,
-              height: 30,
-              marginLeft: 10,
-            }}
-            onClick={() => {
-              setBottom(i ? i + 1 : 0);
-            }}
-          >
-            {i}
-          </button>
-        ))}
-      </div>
-      <div>
-        <div style={{ margin: 10 }}>LEFT</div>
-        {new Array(7).fill("a").map((x, i) => (
-          <button
-            key={i}
-            style={{
-              backgroundColor: "gray",
-              width: 30,
-              height: 30,
-              marginLeft: 10,
-            }}
-            onClick={() => {
-              setLeft(i ? i + 1 : 0);
-            }}
-          >
-            {i}
-          </button>
-        ))}
-      </div>
 
-      <button
-        style={{
-          borderRadius: 8,
-          padding: "2px 16px",
-          backgroundColor: "yellowgreen",
-          margin: 20,
-        }}
-        onClick={handleDownloadPDF}
-      >
-        PDF DOWNLOAD
-      </button>
+        <div>
+          <div style={{ margin: 10 }}>TOP</div>
+          {new Array(7).fill("a").map((x, i) => (
+            <button
+              key={i}
+              style={{
+                backgroundColor: "gray",
+                width: 30,
+                height: 30,
+                marginLeft: 10,
+              }}
+              onClick={() => {
+                setTop(i ? i + 1 : 0);
+              }}
+            >
+              {i}
+            </button>
+          ))}
+        </div>
+        <div>
+          <div style={{ margin: 10 }}>RIGHT</div>
+          {new Array(7).fill("a").map((x, i) => (
+            <button
+              key={i}
+              style={{
+                backgroundColor: "gray",
+                width: 30,
+                height: 30,
+                marginLeft: 10,
+              }}
+              onClick={() => {
+                setRight(i ? i + 1 : 0);
+              }}
+            >
+              {i}
+            </button>
+          ))}
+        </div>
+        <div>
+          <div style={{ margin: 10 }}>BOTTOM</div>
+          {new Array(7).fill("a").map((x, i) => (
+            <button
+              key={i}
+              style={{
+                backgroundColor: "gray",
+                width: 30,
+                height: 30,
+                marginLeft: 10,
+              }}
+              onClick={() => {
+                setBottom(i ? i + 1 : 0);
+              }}
+            >
+              {i}
+            </button>
+          ))}
+        </div>
+        <div>
+          <div style={{ margin: 10 }}>LEFT</div>
+          {new Array(7).fill("a").map((x, i) => (
+            <button
+              key={i}
+              style={{
+                backgroundColor: "gray",
+                width: 30,
+                height: 30,
+                marginLeft: 10,
+              }}
+              onClick={() => {
+                setLeft(i ? i + 1 : 0);
+              }}
+            >
+              {i}
+            </button>
+          ))}
+        </div>
+
+        <button
+          style={{
+            borderRadius: 8,
+            padding: "2px 16px",
+            backgroundColor: "yellowgreen",
+            margin: 20,
+          }}
+          onClick={handleDownloadPDF}
+        >
+          PDF DOWNLOAD
+        </button>
+      </div>
     </div>
   );
 }
