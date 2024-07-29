@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/crata-test/static/css/main.c13e85fc.css",
-    "main.js": "/crata-test/static/js/main.13b3c822.js",
+    "main.js": "/crata-test/static/js/main.ddc98878.js",
     "static/js/703.d39846d2.chunk.js": "/crata-test/static/js/703.d39846d2.chunk.js",
     "static/js/598.c1f8d626.chunk.js": "/crata-test/static/js/598.c1f8d626.chunk.js",
     "static/js/787.3341b1f5.chunk.js": "/crata-test/static/js/787.3341b1f5.chunk.js",
     "index.html": "/crata-test/index.html",
     "main.c13e85fc.css.map": "/crata-test/static/css/main.c13e85fc.css.map",
-    "main.13b3c822.js.map": "/crata-test/static/js/main.13b3c822.js.map",
+    "main.ddc98878.js.map": "/crata-test/static/js/main.ddc98878.js.map",
     "703.d39846d2.chunk.js.map": "/crata-test/static/js/703.d39846d2.chunk.js.map",
     "598.c1f8d626.chunk.js.map": "/crata-test/static/js/598.c1f8d626.chunk.js.map",
     "787.3341b1f5.chunk.js.map": "/crata-test/static/js/787.3341b1f5.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c13e85fc.css",
-    "static/js/main.13b3c822.js"
+    "static/js/main.ddc98878.js"
   ]
 }
