@@ -1,21 +1,19 @@
 {
   "files": {
-    "main.css": "/crata-test/static/css/main.a20037c4.css",
-    "main.js": "/crata-test/static/js/main.a45f5706.js",
-    "static/js/239.6d1c5d4a.chunk.js": "/crata-test/static/js/239.6d1c5d4a.chunk.js",
-    "static/js/213.6db9c794.chunk.js": "/crata-test/static/js/213.6db9c794.chunk.js",
-    "static/js/732.a6fa4fd2.chunk.js": "/crata-test/static/js/732.a6fa4fd2.chunk.js",
-    "static/js/453.ac123b8b.chunk.js": "/crata-test/static/js/453.ac123b8b.chunk.js",
+    "main.css": "/crata-test/static/css/main.c13e85fc.css",
+    "main.js": "/crata-test/static/js/main.1392bb23.js",
+    "static/js/703.d39846d2.chunk.js": "/crata-test/static/js/703.d39846d2.chunk.js",
+    "static/js/598.c1f8d626.chunk.js": "/crata-test/static/js/598.c1f8d626.chunk.js",
+    "static/js/787.3341b1f5.chunk.js": "/crata-test/static/js/787.3341b1f5.chunk.js",
     "index.html": "/crata-test/index.html",
-    "main.a20037c4.css.map": "/crata-test/static/css/main.a20037c4.css.map",
-    "main.a45f5706.js.map": "/crata-test/static/js/main.a45f5706.js.map",
-    "239.6d1c5d4a.chunk.js.map": "/crata-test/static/js/239.6d1c5d4a.chunk.js.map",
-    "213.6db9c794.chunk.js.map": "/crata-test/static/js/213.6db9c794.chunk.js.map",
-    "732.a6fa4fd2.chunk.js.map": "/crata-test/static/js/732.a6fa4fd2.chunk.js.map",
-    "453.ac123b8b.chunk.js.map": "/crata-test/static/js/453.ac123b8b.chunk.js.map"
+    "main.c13e85fc.css.map": "/crata-test/static/css/main.c13e85fc.css.map",
+    "main.1392bb23.js.map": "/crata-test/static/js/main.1392bb23.js.map",
+    "703.d39846d2.chunk.js.map": "/crata-test/static/js/703.d39846d2.chunk.js.map",
+    "598.c1f8d626.chunk.js.map": "/crata-test/static/js/598.c1f8d626.chunk.js.map",
+    "787.3341b1f5.chunk.js.map": "/crata-test/static/js/787.3341b1f5.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a20037c4.css",
-    "static/js/main.a45f5706.js"
+    "static/css/main.c13e85fc.css",
+    "static/js/main.1392bb23.js"
   ]
 }
