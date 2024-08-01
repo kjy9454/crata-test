@@ -1,6 +1,12 @@
 import React from "react";
 
-const RoundGraph = ({ outWidth, colorSize, backgroundColor, borderColor }) => {
+const RoundGraph = ({
+  outWidth,
+  colorSize,
+  backgroundColor,
+  borderColor,
+  borderWidth,
+}) => {
   return (
     <>
       {Array(7)
@@ -15,7 +21,12 @@ const RoundGraph = ({ outWidth, colorSize, backgroundColor, borderColor }) => {
                 justifyContent: "center",
                 position: "absolute",
                 borderRadius: 999,
-                border: `${i === colorSize - 1 ? 4 : 2}px solid ${
+                boxSizing: "content-box",
+                border: `${
+                  i === colorSize - 1
+                    ? Math.max(outWidth * 0.015, 3)
+                    : borderWidth
+                }px solid ${
                   i === colorSize - 1 && borderColor ? borderColor : "black"
                 }`,
                 width: (outWidth / 7) * (i + 1),

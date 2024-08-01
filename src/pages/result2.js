@@ -8,10 +8,11 @@ import Icon from "../components/icon";
 
 export default function Result() {
   const screenRef = useRef(null);
-  const maxWidth = 800;
+  const maxWidth = 720;
   const [testWidth, setWidth] = useState(Math.min(window.innerWidth, maxWidth));
   const width = testWidth;
   const outWidth = width * 0.85;
+  const borderWidth = Math.max(outWidth * 0.003, 1);
   const [colorSize, setColorSize] = useState(3);
   const [top, setTop] = useState(0);
   const [left, setLeft] = useState(0);
@@ -36,8 +37,8 @@ export default function Result() {
   // 상단 왼쪽 대각선
   const { lineLength: topLeftLength, angle: topLeftAngle } =
     calculateLineAttributes(left, top);
-  const topLeftTop = width / 2 - (top * outWidth) / 14 + 1;
-  const topLeftLeft = width / 2 + 1;
+  const topLeftTop = width / 2 - (top * outWidth) / 14 + borderWidth;
+  const topLeftLeft = width / 2 + borderWidth;
   const adjustedTopLeftAngle = 180 - topLeftAngle; // 각도 보정
 
   // 상단 오른쪽 대각선
@@ -50,15 +51,15 @@ export default function Result() {
   // 하단 오른쪽 대각선
   const { lineLength: bottomRightLength, angle: bottomRightAngle } =
     calculateLineAttributes(right, bottom);
-  const bottomRightTop = width / 2 + (bottom * outWidth) / 14 - 1; // 위치 조정
-  const bottomRightLeft = width / 2 - 1;
+  const bottomRightTop = width / 2 + (bottom * outWidth) / 14 - borderWidth; // 위치 조정
+  const bottomRightLeft = width / 2 - borderWidth;
   const adjustedBottomRightAngle = 360 - bottomRightAngle; // 각도 보정
 
   // 하단 왼쪽 대각선
   const { lineLength: bottomLeftLength, angle: bottomLeftAngle } =
     calculateLineAttributes(left, bottom);
-  const bottomLeftTop = width / 2 - 1;
-  const bottomLeftLeft = width / 2 - (left * outWidth) / 14 + 1;
+  const bottomLeftTop = width / 2 - borderWidth;
+  const bottomLeftLeft = width / 2 - (left * outWidth) / 14 + borderWidth;
   const adjustedBottomLeftAngle = bottomLeftAngle; // 각도 보정
 
   const handleDownloadPDF = async () => {
@@ -145,13 +146,14 @@ export default function Result() {
               <div
                 style={{
                   width,
-                  height: 2,
+                  height: borderWidth,
                 }}
               />
+              {/* x축 */}
               <div
                 style={{
                   width,
-                  height: 2,
+                  height: borderWidth,
                   backgroundColor: "black",
                   zIndex: 6,
                   position: "absolute",
@@ -160,17 +162,81 @@ export default function Result() {
               />
               <div
                 style={{
+                  width: 0,
+                  height: 0,
+                  borderRight: `${Math.max(width * 0.02, 10)}px solid black`,
+                  borderTop: `${Math.max(width * 0.01, 5)}px solid transparent`,
+                  borderBottom: `${Math.max(
+                    width * 0.01,
+                    5
+                  )}px solid transparent`,
+                  position: "absolute",
+                  left: 0,
+                }}
+              />
+              <div
+                style={{
+                  width: 0,
+                  height: 0,
+                  borderLeft: `${Math.max(width * 0.02, 10)}px solid black`,
+                  borderTop: `${Math.max(width * 0.01, 5)}px solid transparent`,
+                  borderBottom: `${Math.max(
+                    width * 0.01,
+                    5
+                  )}px solid transparent`,
+                  position: "absolute",
+                  left: width - Math.max(width * 0.02, 10) + 1,
+                }}
+              />
+              {/* y축 */}
+              <div
+                style={{
                   height: width,
-                  width: 2,
+                  width: borderWidth,
                   backgroundColor: "black",
                   position: "absolute",
-                  left: width / 2 - 1,
+                  left: width / 2 - borderWidth / 2,
                   zIndex: 6,
+                }}
+              />
+              <div
+                style={{
+                  width: 0,
+                  height: 0,
+                  borderLeft: `${Math.max(
+                    width * 0.01,
+                    5
+                  )}px solid transparent`,
+                  borderBottom: `${Math.max(width * 0.02, 10)}px solid black`,
+                  borderRight: `${Math.max(
+                    width * 0.01,
+                    5
+                  )}px solid transparent`,
+                  position: "absolute",
+                  top: 0,
+                }}
+              />
+              <div
+                style={{
+                  width: 0,
+                  height: 0,
+                  borderLeft: `${Math.max(
+                    width * 0.01,
+                    5
+                  )}px solid transparent`,
+                  borderTop: `${Math.max(width * 0.02, 10)}px solid black`,
+                  borderRight: `${Math.max(
+                    width * 0.01,
+                    5
+                  )}px solid transparent`,
+                  position: "absolute",
+                  top: width - Math.max(width * 0.02, 10) + 1,
                 }}
               />
               <RoundGraph
                 outWidth={outWidth}
                 colorSize={colorSize}
+                borderWidth={borderWidth}
                 {...auraSoma}
               />
               {Boolean(top) && Boolean(left) ? (
@@ -180,7 +246,7 @@ export default function Result() {
                     top: topLeftTop,
                     left: topLeftLeft,
                     width: topLeftLength,
-                    height: "2px",
+                    height: Math.max(outWidth * 0.0075, 1.5),
                     zIndex: 30,
                     overflow: "hidden",
                     transform: `rotate(${adjustedTopLeftAngle}deg)`,
@@ -192,7 +258,7 @@ export default function Result() {
                 <div
                   style={{
                     width: (left * outWidth) / 14,
-                    height: 2,
+                    height: Math.max(outWidth * 0.0075, 1.5),
                     backgroundColor: "red",
                     position: "absolute",
                     left: width / 2 - (left * outWidth) / 14,
@@ -202,7 +268,7 @@ export default function Result() {
               ) : (
                 <div
                   style={{
-                    width: 2,
+                    width: Math.max(outWidth * 0.0075, 1.5),
                     height: (top * outWidth) / 14,
                     backgroundColor: "red",
                     position: "absolute",
@@ -218,7 +284,7 @@ export default function Result() {
                     top: topRightTop,
                     left: topRightLeft,
                     width: topRightLength,
-                    height: "2px",
+                    height: Math.max(outWidth * 0.0075, 1.5),
                     zIndex: 30,
                     overflow: "hidden",
                     transform: `rotate(${adjustedTopRightAngle}deg)`,
@@ -230,7 +296,7 @@ export default function Result() {
                 <div
                   style={{
                     width: (right * outWidth) / 14,
-                    height: 2,
+                    height: Math.max(outWidth * 0.0075, 1.5),
                     backgroundColor: "red",
                     position: "absolute",
                     left: width / 2,
@@ -240,7 +306,7 @@ export default function Result() {
               ) : (
                 <div
                   style={{
-                    width: 2,
+                    width: Math.max(outWidth * 0.0075, 1.5),
                     height: (top * outWidth) / 14,
                     backgroundColor: "red",
                     position: "absolute",
@@ -256,7 +322,7 @@ export default function Result() {
                     top: bottomRightTop,
                     left: bottomRightLeft,
                     width: bottomRightLength,
-                    height: "2px",
+                    height: Math.max(outWidth * 0.0075, 1.5),
                     zIndex: 30,
                     overflow: "hidden",
                     transform: `rotate(${adjustedBottomRightAngle}deg)`,
@@ -268,7 +334,7 @@ export default function Result() {
                 <div
                   style={{
                     width: (right * outWidth) / 14,
-                    height: 2,
+                    height: Math.max(outWidth * 0.0075, 1.5),
                     backgroundColor: "red",
                     position: "absolute",
                     left: width / 2,
@@ -278,7 +344,7 @@ export default function Result() {
               ) : (
                 <div
                   style={{
-                    width: 2,
+                    width: Math.max(outWidth * 0.0075, 1.5),
                     height: (bottom * outWidth) / 14,
                     backgroundColor: "red",
                     position: "absolute",
@@ -294,7 +360,7 @@ export default function Result() {
                     top: bottomLeftTop,
                     left: bottomLeftLeft,
                     width: bottomLeftLength,
-                    height: "2px",
+                    height: Math.max(outWidth * 0.0075, 1.5),
                     zIndex: 30,
                     overflow: "hidden",
                     transform: `rotate(${adjustedBottomLeftAngle}deg)`,
@@ -306,17 +372,17 @@ export default function Result() {
                 <div
                   style={{
                     width: (left * outWidth) / 14,
-                    height: 2,
+                    height: Math.max(outWidth * 0.0075, 1.5),
                     backgroundColor: "red",
                     position: "absolute",
-                    left: width / 2 - (left * outWidth) / 14,
+                    left: width / 2 - (left * outWidth) / 14 - 100,
                     zIndex: 30,
                   }}
                 />
               ) : (
                 <div
                   style={{
-                    width: 2,
+                    width: Math.max(outWidth * 0.0075, 1.5),
                     height: (bottom * outWidth) / 14,
                     backgroundColor: "red",
                     position: "absolute",
@@ -437,7 +503,7 @@ export default function Result() {
           style={{
             borderRadius: 8,
             padding: "2px 16px",
-            backgroundColor: "yellowgreen",
+            backgroundColor: "red",
             margin: 20,
           }}
           onClick={handleDownloadPDF}
