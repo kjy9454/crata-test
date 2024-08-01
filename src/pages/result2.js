@@ -44,8 +44,8 @@ export default function Result() {
   // 상단 오른쪽 대각선
   const { lineLength: topRightLength, angle: topRightAngle } =
     calculateLineAttributes(right, top);
-  const topRightTop = width / 2 - (top * outWidth) / 14;
-  const topRightLeft = width / 2;
+  const topRightTop = width / 2 - (top * outWidth) / 14 - borderWidth;
+  const topRightLeft = width / 2 + borderWidth;
   const adjustedTopRightAngle = topRightAngle; // 각도 보정
 
   // 하단 오른쪽 대각선
@@ -295,11 +295,13 @@ export default function Result() {
               ) : Boolean(right) ? (
                 <div
                   style={{
-                    width: (right * outWidth) / 14,
+                    width:
+                      (right * outWidth) / 14 +
+                      Math.max(outWidth * 0.0075, 1.5) / 2,
                     height: Math.max(outWidth * 0.0075, 1.5),
                     backgroundColor: "red",
                     position: "absolute",
-                    left: width / 2,
+                    left: width / 2 - Math.max(outWidth * 0.0075, 1.5) / 2,
                     zIndex: 30,
                   }}
                 />
@@ -307,7 +309,9 @@ export default function Result() {
                 <div
                   style={{
                     width: Math.max(outWidth * 0.0075, 1.5),
-                    height: (top * outWidth) / 14,
+                    height:
+                      (top * outWidth) / 14 +
+                      Math.max(outWidth * 0.0075, 1.5) / 2,
                     backgroundColor: "red",
                     position: "absolute",
                     top: top ? width / 2 - (top * outWidth) / 14 : 2,
@@ -333,11 +337,13 @@ export default function Result() {
               ) : Boolean(right) ? (
                 <div
                   style={{
-                    width: (right * outWidth) / 14,
+                    width:
+                      (right * outWidth) / 14 +
+                      Math.max(outWidth * 0.0075, 1.5) / 2,
                     height: Math.max(outWidth * 0.0075, 1.5),
                     backgroundColor: "red",
                     position: "absolute",
-                    left: width / 2,
+                    left: width / 2 - Math.max(outWidth * 0.0075, 1.5) / 2,
                     zIndex: 30,
                   }}
                 />
@@ -371,11 +377,13 @@ export default function Result() {
               ) : Boolean(left) ? (
                 <div
                   style={{
-                    width: (left * outWidth) / 14,
+                    width:
+                      (left * outWidth) / 14 +
+                      Math.max(outWidth * 0.0075, 1.5) / 2,
                     height: Math.max(outWidth * 0.0075, 1.5),
                     backgroundColor: "red",
                     position: "absolute",
-                    left: width / 2 - (left * outWidth) / 14 - 100,
+                    left: width / 2 - (left * outWidth) / 14,
                     zIndex: 30,
                   }}
                 />
