@@ -36,7 +36,7 @@ const RoundGraph = ({ outWidth, colorSize, backgroundColor, borderColor }) => {
           borderRadius: 999,
           zIndex: 999,
           color: "black",
-          fontSize: 30,
+          fontSize: (outWidth / 7) * 0.6 || 16,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",

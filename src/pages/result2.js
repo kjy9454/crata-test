@@ -4,11 +4,14 @@ import jsPDF from "jspdf";
 import RoundGraph from "../components/roundGraph";
 import { convertDateToAuraSoma } from "../utils/convertToAuraSoma";
 import moment from "moment";
+import Icon from "../components/icon";
 
 export default function Result() {
   const screenRef = useRef(null);
-  const width = 600;
-  const outWidth = width - 200;
+  const maxWidth = 800;
+  const [testWidth, setWidth] = useState(Math.min(window.innerWidth, maxWidth));
+  const width = testWidth;
+  const outWidth = width * 0.85;
   const [colorSize, setColorSize] = useState(3);
   const [top, setTop] = useState(0);
   const [left, setLeft] = useState(0);
@@ -98,6 +101,18 @@ export default function Result() {
     });
   };
 
+  const handleResize = () => {
+    setWidth(Math.min(window.innerWidth, maxWidth));
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <div style={{ display: "flex" }}>
       <div>
@@ -113,6 +128,10 @@ export default function Result() {
           <p>오라소마 기준 날짜</p>
         </div>
         <div id="pdf-content" ref={screenRef} style={{ width: width }}>
+          {/* <div style={{ position: "absolute", zIndex: 999 }}>
+            <Icon iconName={"Icon3"} iconSize={360} />
+            <Icon iconName={"Icon3"} iconSize={36} />
+          </div> */}
           <div style={{ width: width, height: width * 1.414 }}>
             <div
               style={{
