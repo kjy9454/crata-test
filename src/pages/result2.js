@@ -1,16 +1,18 @@
-import { useEffect, useState, useRef } from "react";
+import { useState } from "react";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import RoundGraph from "../components/roundGraph";
 import { convertDateToAuraSoma } from "../utils/convertToAuraSoma";
 import moment from "moment";
-import Icon from "../components/icon";
+import A4Layout from "../components/a4Layout";
+import useScreenSize from "../hooks/useScreenSize";
+import Layout from "../components/layout";
+import { PDF_PADDING } from "../utils/consts";
+import UserInfo from "../components/userInfo";
 
 export default function Result() {
-  const screenRef = useRef(null);
-  const maxWidth = 720;
-  const [testWidth, setWidth] = useState(Math.min(window.innerWidth, maxWidth));
-  const width = testWidth;
+  const { width: screenWidth } = useScreenSize();
+  const width = (screenWidth - PDF_PADDING * 2) * 0.5;
   const outWidth = width * 0.85;
   const borderWidth = Math.max(outWidth * 0.003, 1);
   const [colorSize, setColorSize] = useState(3);
@@ -102,423 +104,394 @@ export default function Result() {
     });
   };
 
-  const handleResize = () => {
-    setWidth(Math.min(window.innerWidth, maxWidth));
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
   return (
-    <div style={{ display: "flex" }}>
-      <div>
-        <div style={{ position: "absolute", zIndex: 999, color: "black" }}>
-          <input
+    <Layout>
+      <div id="pdf-content">
+        <A4Layout page={1}>
+          <UserInfo />
+          <div>
+            <div style={{ color: "black" }}>
+              <input
+                style={{
+                  border: "1px solid black",
+                }}
+                type="date"
+                value={birthDate}
+                onChange={(e) => setBirthDate(e.target.value)}
+              />
+              <p>오라소마 기준 날짜</p>
+            </div>
+            <div style={{ margin: 10 }}>오라소마 크기</div>
+            {new Array(7).fill("a").map((x, i) => (
+              <button
+                key={i}
+                style={{
+                  backgroundColor: "gray",
+                  width: 30,
+                  height: 30,
+                  marginLeft: 10,
+                }}
+                onClick={() => {
+                  setColorSize(i ? i + 1 : 0);
+                }}
+              >
+                {i}
+              </button>
+            ))}
+
+            <div>
+              <div style={{ margin: 10 }}>TOP</div>
+              {new Array(7).fill("a").map((x, i) => (
+                <button
+                  key={i}
+                  style={{
+                    backgroundColor: "gray",
+                    width: 30,
+                    height: 30,
+                    marginLeft: 10,
+                  }}
+                  onClick={() => {
+                    setTop(i ? i + 1 : 0);
+                  }}
+                >
+                  {i}
+                </button>
+              ))}
+            </div>
+            <div>
+              <div style={{ margin: 10 }}>RIGHT</div>
+              {new Array(7).fill("a").map((x, i) => (
+                <button
+                  key={i}
+                  style={{
+                    backgroundColor: "gray",
+                    width: 30,
+                    height: 30,
+                    marginLeft: 10,
+                  }}
+                  onClick={() => {
+                    setRight(i ? i + 1 : 0);
+                  }}
+                >
+                  {i}
+                </button>
+              ))}
+            </div>
+            <div>
+              <div style={{ margin: 10 }}>BOTTOM</div>
+              {new Array(7).fill("a").map((x, i) => (
+                <button
+                  key={i}
+                  style={{
+                    backgroundColor: "gray",
+                    width: 30,
+                    height: 30,
+                    marginLeft: 10,
+                  }}
+                  onClick={() => {
+                    setBottom(i ? i + 1 : 0);
+                  }}
+                >
+                  {i}
+                </button>
+              ))}
+            </div>
+            <div>
+              <div style={{ margin: 10 }}>LEFT</div>
+              {new Array(7).fill("a").map((x, i) => (
+                <button
+                  key={i}
+                  style={{
+                    backgroundColor: "gray",
+                    width: 30,
+                    height: 30,
+                    marginLeft: 10,
+                  }}
+                  onClick={() => {
+                    setLeft(i ? i + 1 : 0);
+                  }}
+                >
+                  {i}
+                </button>
+              ))}
+            </div>
+            <button
+              style={{
+                borderRadius: 8,
+                padding: "2px 16px",
+                backgroundColor: "lightblue",
+                margin: 20,
+              }}
+              onClick={handleDownloadPDF}
+            >
+              PDF DOWNLOAD
+            </button>
+          </div>
+        </A4Layout>
+        <A4Layout page={2}>
+          <div
             style={{
-              border: "1px solid black",
+              display: "flex",
+              width,
+              height: width,
+              alignItems: "center",
+              justifyContent: "center",
+              position: "relative",
             }}
-            type="date"
-            value={birthDate}
-            onChange={(e) => setBirthDate(e.target.value)}
-          />
-          <p>오라소마 기준 날짜</p>
-        </div>
-        <div id="pdf-content" ref={screenRef} style={{ width: width }}>
-          {/* <div style={{ position: "absolute", zIndex: 999 }}>
-            <Icon iconName={"Icon3"} iconSize={360} />
-            <Icon iconName={"Icon3"} iconSize={36} />
-          </div> */}
-          <div style={{ width: width, height: width * 1.414 }}>
+          >
             <div
               style={{
-                display: "flex",
                 width,
-                height: width,
-                alignItems: "center",
-                justifyContent: "center",
+                height: borderWidth,
               }}
-            >
+            />
+            {/* x축 */}
+            <div
+              style={{
+                width,
+                height: borderWidth,
+                backgroundColor: "black",
+                zIndex: 6,
+                position: "absolute",
+              }}
+            />
+            <div
+              style={{
+                width: 0,
+                height: 0,
+                borderRight: `${Math.max(width * 0.02, 10)}px solid black`,
+                borderTop: `${Math.max(width * 0.01, 5)}px solid transparent`,
+                borderBottom: `${Math.max(
+                  width * 0.01,
+                  5
+                )}px solid transparent`,
+                position: "absolute",
+                left: 0,
+              }}
+            />
+            <div
+              style={{
+                width: 0,
+                height: 0,
+                borderLeft: `${Math.max(width * 0.02, 10)}px solid black`,
+                borderTop: `${Math.max(width * 0.01, 5)}px solid transparent`,
+                borderBottom: `${Math.max(
+                  width * 0.01,
+                  5
+                )}px solid transparent`,
+                position: "absolute",
+                right: 0,
+              }}
+            />
+            {/* y축 */}
+            <div
+              style={{
+                height: width,
+                width: borderWidth,
+                backgroundColor: "black",
+                position: "absolute",
+                alignSelf: "center",
+                zIndex: 6,
+              }}
+            />
+            <div
+              style={{
+                width: 0,
+                height: 0,
+                borderLeft: `${Math.max(width * 0.01, 5)}px solid transparent`,
+                borderBottom: `${Math.max(width * 0.02, 10)}px solid black`,
+                borderRight: `${Math.max(width * 0.01, 5)}px solid transparent`,
+                position: "absolute",
+                top: 0,
+              }}
+            />
+            <div
+              style={{
+                width: 0,
+                height: 0,
+                borderLeft: `${Math.max(width * 0.01, 5)}px solid transparent`,
+                borderTop: `${Math.max(width * 0.02, 10)}px solid black`,
+                borderRight: `${Math.max(width * 0.01, 5)}px solid transparent`,
+                position: "absolute",
+                top: width - Math.max(width * 0.02, 10) + 1,
+              }}
+            />
+            <RoundGraph
+              outWidth={outWidth}
+              colorSize={colorSize}
+              borderWidth={borderWidth}
+              {...auraSoma}
+            />
+            {Boolean(top) && Boolean(left) ? (
               <div
                 style={{
-                  width,
-                  height: borderWidth,
-                }}
-              />
-              {/* x축 */}
-              <div
-                style={{
-                  width,
-                  height: borderWidth,
-                  backgroundColor: "black",
-                  zIndex: 6,
                   position: "absolute",
-                  alignSelf: "center",
+                  top: topLeftTop,
+                  left: topLeftLeft,
+                  width: topLeftLength,
+                  height: Math.max(outWidth * 0.0075, 1.5),
+                  zIndex: 30,
+                  overflow: "hidden",
+                  transform: `rotate(${adjustedTopLeftAngle}deg)`,
+                  transformOrigin: "0 0", // 회전 기준점 설정
+                  backgroundColor: "yellowgreen",
                 }}
               />
+            ) : Boolean(left) ? (
               <div
                 style={{
-                  width: 0,
-                  height: 0,
-                  borderRight: `${Math.max(width * 0.02, 10)}px solid black`,
-                  borderTop: `${Math.max(width * 0.01, 5)}px solid transparent`,
-                  borderBottom: `${Math.max(
-                    width * 0.01,
-                    5
-                  )}px solid transparent`,
+                  width: (left * outWidth) / 14,
+                  height: Math.max(outWidth * 0.0075, 1.5),
+                  backgroundColor: "yellowgreen",
                   position: "absolute",
-                  left: 0,
+                  left: width / 2 - (left * outWidth) / 14,
+                  zIndex: 30,
                 }}
               />
+            ) : (
               <div
                 style={{
-                  width: 0,
-                  height: 0,
-                  borderLeft: `${Math.max(width * 0.02, 10)}px solid black`,
-                  borderTop: `${Math.max(width * 0.01, 5)}px solid transparent`,
-                  borderBottom: `${Math.max(
-                    width * 0.01,
-                    5
-                  )}px solid transparent`,
+                  width: Math.max(outWidth * 0.0075, 1.5),
+                  height: (top * outWidth) / 14,
+                  backgroundColor: "yellowgreen",
                   position: "absolute",
-                  left: width - Math.max(width * 0.02, 10) + 1,
+                  top: top ? width / 2 - (top * outWidth) / 14 : 2,
+                  zIndex: 30,
                 }}
               />
-              {/* y축 */}
+            )}
+            {Boolean(top) && Boolean(right) ? (
               <div
                 style={{
-                  height: width,
-                  width: borderWidth,
-                  backgroundColor: "black",
                   position: "absolute",
-                  left: width / 2 - borderWidth / 2,
-                  zIndex: 6,
+                  top: topRightTop,
+                  left: topRightLeft,
+                  width: topRightLength,
+                  height: Math.max(outWidth * 0.0075, 1.5),
+                  zIndex: 30,
+                  overflow: "hidden",
+                  transform: `rotate(${adjustedTopRightAngle}deg)`,
+                  transformOrigin: "0 0", // 회전 기준점 설정
+                  backgroundColor: "yellowgreen",
                 }}
               />
+            ) : Boolean(right) ? (
               <div
                 style={{
-                  width: 0,
-                  height: 0,
-                  borderLeft: `${Math.max(
-                    width * 0.01,
-                    5
-                  )}px solid transparent`,
-                  borderBottom: `${Math.max(width * 0.02, 10)}px solid black`,
-                  borderRight: `${Math.max(
-                    width * 0.01,
-                    5
-                  )}px solid transparent`,
+                  width:
+                    (right * outWidth) / 14 +
+                    Math.max(outWidth * 0.0075, 1.5) / 2,
+                  height: Math.max(outWidth * 0.0075, 1.5),
+                  backgroundColor: "yellowgreen",
                   position: "absolute",
-                  top: 0,
+                  left: width / 2 - Math.max(outWidth * 0.0075, 1.5) / 2,
+                  zIndex: 30,
                 }}
               />
-              <div
-                style={{
-                  width: 0,
-                  height: 0,
-                  borderLeft: `${Math.max(
-                    width * 0.01,
-                    5
-                  )}px solid transparent`,
-                  borderTop: `${Math.max(width * 0.02, 10)}px solid black`,
-                  borderRight: `${Math.max(
-                    width * 0.01,
-                    5
-                  )}px solid transparent`,
-                  position: "absolute",
-                  top: width - Math.max(width * 0.02, 10) + 1,
-                }}
-              />
-              <RoundGraph
-                outWidth={outWidth}
-                colorSize={colorSize}
-                borderWidth={borderWidth}
-                {...auraSoma}
-              />
-              {Boolean(top) && Boolean(left) ? (
-                <div
-                  style={{
-                    position: "absolute",
-                    top: topLeftTop,
-                    left: topLeftLeft,
-                    width: topLeftLength,
-                    height: Math.max(outWidth * 0.0075, 1.5),
-                    zIndex: 30,
-                    overflow: "hidden",
-                    transform: `rotate(${adjustedTopLeftAngle}deg)`,
-                    transformOrigin: "0 0", // 회전 기준점 설정
-                    backgroundColor: "red",
-                  }}
-                />
-              ) : Boolean(left) ? (
-                <div
-                  style={{
-                    width: (left * outWidth) / 14,
-                    height: Math.max(outWidth * 0.0075, 1.5),
-                    backgroundColor: "red",
-                    position: "absolute",
-                    left: width / 2 - (left * outWidth) / 14,
-                    zIndex: 30,
-                  }}
-                />
-              ) : (
-                <div
-                  style={{
-                    width: Math.max(outWidth * 0.0075, 1.5),
-                    height: (top * outWidth) / 14,
-                    backgroundColor: "red",
-                    position: "absolute",
-                    top: top ? width / 2 - (top * outWidth) / 14 : 2,
-                    zIndex: 30,
-                  }}
-                />
-              )}
-              {Boolean(top) && Boolean(right) ? (
-                <div
-                  style={{
-                    position: "absolute",
-                    top: topRightTop,
-                    left: topRightLeft,
-                    width: topRightLength,
-                    height: Math.max(outWidth * 0.0075, 1.5),
-                    zIndex: 30,
-                    overflow: "hidden",
-                    transform: `rotate(${adjustedTopRightAngle}deg)`,
-                    transformOrigin: "0 0", // 회전 기준점 설정
-                    backgroundColor: "red",
-                  }}
-                />
-              ) : Boolean(right) ? (
-                <div
-                  style={{
-                    width:
-                      (right * outWidth) / 14 +
-                      Math.max(outWidth * 0.0075, 1.5) / 2,
-                    height: Math.max(outWidth * 0.0075, 1.5),
-                    backgroundColor: "red",
-                    position: "absolute",
-                    left: width / 2 - Math.max(outWidth * 0.0075, 1.5) / 2,
-                    zIndex: 30,
-                  }}
-                />
-              ) : (
+            ) : (
+              Boolean(top) && (
                 <div
                   style={{
                     width: Math.max(outWidth * 0.0075, 1.5),
                     height:
                       (top * outWidth) / 14 +
                       Math.max(outWidth * 0.0075, 1.5) / 2,
-                    backgroundColor: "red",
+                    backgroundColor: "yellowgreen",
                     position: "absolute",
                     top: top ? width / 2 - (top * outWidth) / 14 : 2,
                     zIndex: 30,
                   }}
                 />
-              )}
-              {Boolean(bottom) && Boolean(right) ? (
-                <div
-                  style={{
-                    position: "absolute",
-                    top: bottomRightTop,
-                    left: bottomRightLeft,
-                    width: bottomRightLength,
-                    height: Math.max(outWidth * 0.0075, 1.5),
-                    zIndex: 30,
-                    overflow: "hidden",
-                    transform: `rotate(${adjustedBottomRightAngle}deg)`,
-                    transformOrigin: "0 0", // 회전 기준점 설정
-                    backgroundColor: "red",
-                  }}
-                />
-              ) : Boolean(right) ? (
-                <div
-                  style={{
-                    width:
-                      (right * outWidth) / 14 +
-                      Math.max(outWidth * 0.0075, 1.5) / 2,
-                    height: Math.max(outWidth * 0.0075, 1.5),
-                    backgroundColor: "red",
-                    position: "absolute",
-                    left: width / 2 - Math.max(outWidth * 0.0075, 1.5) / 2,
-                    zIndex: 30,
-                  }}
-                />
-              ) : (
-                <div
-                  style={{
-                    width: Math.max(outWidth * 0.0075, 1.5),
-                    height: (bottom * outWidth) / 14,
-                    backgroundColor: "red",
-                    position: "absolute",
-                    top: width / 2,
-                    zIndex: 30,
-                  }}
-                />
-              )}
-              {Boolean(bottom) && Boolean(left) ? (
-                <div
-                  style={{
-                    position: "absolute",
-                    top: bottomLeftTop,
-                    left: bottomLeftLeft,
-                    width: bottomLeftLength,
-                    height: Math.max(outWidth * 0.0075, 1.5),
-                    zIndex: 30,
-                    overflow: "hidden",
-                    transform: `rotate(${adjustedBottomLeftAngle}deg)`,
-                    transformOrigin: "0 0", // 회전 기준점 설정
-                    backgroundColor: "red",
-                  }}
-                />
-              ) : Boolean(left) ? (
-                <div
-                  style={{
-                    width:
-                      (left * outWidth) / 14 +
-                      Math.max(outWidth * 0.0075, 1.5) / 2,
-                    height: Math.max(outWidth * 0.0075, 1.5),
-                    backgroundColor: "red",
-                    position: "absolute",
-                    left: width / 2 - (left * outWidth) / 14,
-                    zIndex: 30,
-                  }}
-                />
-              ) : (
+              )
+            )}
+            {Boolean(bottom) && Boolean(right) ? (
+              <div
+                style={{
+                  position: "absolute",
+                  top: bottomRightTop,
+                  left: bottomRightLeft,
+                  width: bottomRightLength,
+                  height: Math.max(outWidth * 0.0075, 1.5),
+                  zIndex: 30,
+                  overflow: "hidden",
+                  transform: `rotate(${adjustedBottomRightAngle}deg)`,
+                  transformOrigin: "0 0", // 회전 기준점 설정
+                  backgroundColor: "yellowgreen",
+                }}
+              />
+            ) : Boolean(right) ? (
+              <div
+                style={{
+                  width:
+                    (right * outWidth) / 14 +
+                    Math.max(outWidth * 0.0075, 1.5) / 2,
+                  height: Math.max(outWidth * 0.0075, 1.5),
+                  backgroundColor: "yellowgreen",
+                  position: "absolute",
+                  left: width / 2 - Math.max(outWidth * 0.0075, 1.5) / 2,
+                  zIndex: 30,
+                }}
+              />
+            ) : (
+              Boolean(bottom) && (
                 <div
                   style={{
                     width: Math.max(outWidth * 0.0075, 1.5),
-                    height: (bottom * outWidth) / 14,
-                    backgroundColor: "red",
+                    height:
+                      (bottom * outWidth) / 14 +
+                      Math.max(outWidth * 0.0075, 1.5) / 2,
+                    backgroundColor: "yellowgreen",
                     position: "absolute",
-                    top: width / 2,
+                    top: width / 2 - Math.max(outWidth * 0.0075, 1.5) / 2,
                     zIndex: 30,
                   }}
                 />
-              )}
-            </div>
+              )
+            )}
+            {Boolean(bottom) && Boolean(left) ? (
+              <div
+                style={{
+                  position: "absolute",
+                  top: bottomLeftTop,
+                  left: bottomLeftLeft,
+                  width: bottomLeftLength,
+                  height: Math.max(outWidth * 0.0075, 1.5),
+                  zIndex: 30,
+                  overflow: "hidden",
+                  transform: `rotate(${adjustedBottomLeftAngle}deg)`,
+                  transformOrigin: "0 0", // 회전 기준점 설정
+                  backgroundColor: "yellowgreen",
+                }}
+              />
+            ) : Boolean(left) ? (
+              <div
+                style={{
+                  width:
+                    (left * outWidth) / 14 +
+                    Math.max(outWidth * 0.0075, 1.5) / 2,
+                  height: Math.max(outWidth * 0.0075, 1.5),
+                  backgroundColor: "yellowgreen",
+                  position: "absolute",
+                  left: width / 2 - (left * outWidth) / 14,
+                  zIndex: 30,
+                }}
+              />
+            ) : (
+              <div
+                style={{
+                  width: Math.max(outWidth * 0.0075, 1.5),
+                  height: (bottom * outWidth) / 14,
+                  backgroundColor: "yellowgreen",
+                  position: "absolute",
+                  top: width / 2,
+                  zIndex: 30,
+                }}
+              />
+            )}
           </div>
-          <div
-            style={{
-              width: width,
-              height: width * 1.414,
-            }}
-          >
-            여기는 2페이지
-          </div>
-        </div>
+        </A4Layout>
+        <A4Layout page={3}>여기는 3페이지</A4Layout>
       </div>
-      <div>
-        <div style={{ margin: 10 }}>오라소마 크기</div>
-        {new Array(7).fill("a").map((x, i) => (
-          <button
-            key={i}
-            style={{
-              backgroundColor: "gray",
-              width: 30,
-              height: 30,
-              marginLeft: 10,
-            }}
-            onClick={() => {
-              setColorSize(i ? i + 1 : 0);
-            }}
-          >
-            {i}
-          </button>
-        ))}
-
-        <div>
-          <div style={{ margin: 10 }}>TOP</div>
-          {new Array(7).fill("a").map((x, i) => (
-            <button
-              key={i}
-              style={{
-                backgroundColor: "gray",
-                width: 30,
-                height: 30,
-                marginLeft: 10,
-              }}
-              onClick={() => {
-                setTop(i ? i + 1 : 0);
-              }}
-            >
-              {i}
-            </button>
-          ))}
-        </div>
-        <div>
-          <div style={{ margin: 10 }}>RIGHT</div>
-          {new Array(7).fill("a").map((x, i) => (
-            <button
-              key={i}
-              style={{
-                backgroundColor: "gray",
-                width: 30,
-                height: 30,
-                marginLeft: 10,
-              }}
-              onClick={() => {
-                setRight(i ? i + 1 : 0);
-              }}
-            >
-              {i}
-            </button>
-          ))}
-        </div>
-        <div>
-          <div style={{ margin: 10 }}>BOTTOM</div>
-          {new Array(7).fill("a").map((x, i) => (
-            <button
-              key={i}
-              style={{
-                backgroundColor: "gray",
-                width: 30,
-                height: 30,
-                marginLeft: 10,
-              }}
-              onClick={() => {
-                setBottom(i ? i + 1 : 0);
-              }}
-            >
-              {i}
-            </button>
-          ))}
-        </div>
-        <div>
-          <div style={{ margin: 10 }}>LEFT</div>
-          {new Array(7).fill("a").map((x, i) => (
-            <button
-              key={i}
-              style={{
-                backgroundColor: "gray",
-                width: 30,
-                height: 30,
-                marginLeft: 10,
-              }}
-              onClick={() => {
-                setLeft(i ? i + 1 : 0);
-              }}
-            >
-              {i}
-            </button>
-          ))}
-        </div>
-
-        <button
-          style={{
-            borderRadius: 8,
-            padding: "2px 16px",
-            backgroundColor: "red",
-            margin: 20,
-          }}
-          onClick={handleDownloadPDF}
-        >
-          PDF DOWNLOAD
-        </button>
-      </div>
-    </div>
+    </Layout>
   );
 }
