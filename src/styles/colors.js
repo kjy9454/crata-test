@@ -16,4 +16,11 @@ export const colors = {
   purple: "#920783",
   magenta: "#e4007f",
   lilac: "#c4b4d7",
+  navy: "#0b3878",
+  gray: "#5a636c",
+  tableBackground: "#e6ecf7",
+  primary: "#b3c6e6",
+  gradient1: "#cdd7e9",
+  gradient2: "#8393be",
+  graphLine: "#d8df00",
 };

@@ -9,12 +9,16 @@ import useScreenSize from "../hooks/useScreenSize";
 import Layout from "../components/layout";
 import { PDF_PADDING } from "../utils/consts";
 import UserInfo from "../components/userInfo";
+import PdfTitle from "../components/pdfTitle";
+import { colors } from "../styles/colors";
+import Content from "../components/content";
+import CrataInfo from "../components/crataInfo";
 
 export default function Result() {
   const { width: screenWidth } = useScreenSize();
-  const width = (screenWidth - PDF_PADDING * 2) * 0.5;
+  const width = (screenWidth - PDF_PADDING * 2) * 0.45;
   const outWidth = width * 0.85;
-  const borderWidth = Math.max(outWidth * 0.003, 1);
+  const borderWidth = Math.max(Math.round(outWidth * 0.003), 1);
   const [colorSize, setColorSize] = useState(3);
   const [top, setTop] = useState(0);
   const [left, setLeft] = useState(0);
@@ -108,6 +112,7 @@ export default function Result() {
     <Layout>
       <div id="pdf-content">
         <A4Layout page={1}>
+          <PdfTitle />
           <UserInfo />
           <div>
             <div style={{ color: "black" }}>
@@ -229,6 +234,9 @@ export default function Result() {
           </div>
         </A4Layout>
         <A4Layout page={2}>
+          <CrataInfo />
+        </A4Layout>
+        <A4Layout page={3}>
           <div
             style={{
               display: "flex",
@@ -259,10 +267,16 @@ export default function Result() {
               style={{
                 width: 0,
                 height: 0,
-                borderRight: `${Math.max(width * 0.02, 10)}px solid black`,
-                borderTop: `${Math.max(width * 0.01, 5)}px solid transparent`,
+                borderRight: `${Math.max(
+                  Math.round(width * 0.02),
+                  5
+                )}px solid black`,
+                borderTop: `${Math.max(
+                  Math.round(width * 0.01),
+                  2.5
+                )}px solid transparent`,
                 borderBottom: `${Math.max(
-                  width * 0.01,
+                  Math.round(width * 0.01),
                   5
                 )}px solid transparent`,
                 position: "absolute",
@@ -273,10 +287,16 @@ export default function Result() {
               style={{
                 width: 0,
                 height: 0,
-                borderLeft: `${Math.max(width * 0.02, 10)}px solid black`,
-                borderTop: `${Math.max(width * 0.01, 5)}px solid transparent`,
+                borderLeft: `${Math.max(
+                  Math.round(width * 0.02),
+                  5
+                )}px solid black`,
+                borderTop: `${Math.max(
+                  Math.round(width * 0.01),
+                  2.5
+                )}px solid transparent`,
                 borderBottom: `${Math.max(
-                  width * 0.01,
+                  Math.round(width * 0.01),
                   5
                 )}px solid transparent`,
                 position: "absolute",
@@ -298,9 +318,18 @@ export default function Result() {
               style={{
                 width: 0,
                 height: 0,
-                borderLeft: `${Math.max(width * 0.01, 5)}px solid transparent`,
-                borderBottom: `${Math.max(width * 0.02, 10)}px solid black`,
-                borderRight: `${Math.max(width * 0.01, 5)}px solid transparent`,
+                borderLeft: `${Math.max(
+                  Math.round(width * 0.01),
+                  2.5
+                )}px solid transparent`,
+                borderBottom: `${Math.max(
+                  Math.round(width * 0.02),
+                  5
+                )}px solid black`,
+                borderRight: `${Math.max(
+                  Math.round(width * 0.01),
+                  2.5
+                )}px solid transparent`,
                 position: "absolute",
                 top: 0,
               }}
@@ -309,11 +338,21 @@ export default function Result() {
               style={{
                 width: 0,
                 height: 0,
-                borderLeft: `${Math.max(width * 0.01, 5)}px solid transparent`,
-                borderTop: `${Math.max(width * 0.02, 10)}px solid black`,
-                borderRight: `${Math.max(width * 0.01, 5)}px solid transparent`,
+                borderLeft: `${Math.max(
+                  width * 0.01,
+                  2.5
+                )}px solid transparent`,
+                borderTop: `${Math.max(
+                  Math.round(width * 0.02),
+                  5
+                )}px solid black`,
+                borderRight: `${Math.max(
+                  Math.round(width * 0.01),
+                  2.5
+                )}px solid transparent`,
                 position: "absolute",
-                top: width - Math.max(width * 0.02, 10) + 1,
+                bottom: 0,
+                alignSelf: "center",
               }}
             />
             <RoundGraph
@@ -329,20 +368,20 @@ export default function Result() {
                   top: topLeftTop,
                   left: topLeftLeft,
                   width: topLeftLength,
-                  height: Math.max(outWidth * 0.0075, 1.5),
+                  height: Math.max(outWidth * 0.0075, 2),
                   zIndex: 30,
                   overflow: "hidden",
                   transform: `rotate(${adjustedTopLeftAngle}deg)`,
                   transformOrigin: "0 0", // 회전 기준점 설정
-                  backgroundColor: "yellowgreen",
+                  backgroundColor: colors.graphLine,
                 }}
               />
             ) : Boolean(left) ? (
               <div
                 style={{
                   width: (left * outWidth) / 14,
-                  height: Math.max(outWidth * 0.0075, 1.5),
-                  backgroundColor: "yellowgreen",
+                  height: Math.max(outWidth * 0.0075, 2),
+                  backgroundColor: colors.graphLine,
                   position: "absolute",
                   left: width / 2 - (left * outWidth) / 14,
                   zIndex: 30,
@@ -351,9 +390,9 @@ export default function Result() {
             ) : (
               <div
                 style={{
-                  width: Math.max(outWidth * 0.0075, 1.5),
+                  width: Math.max(outWidth * 0.0075, 2),
                   height: (top * outWidth) / 14,
-                  backgroundColor: "yellowgreen",
+                  backgroundColor: colors.graphLine,
                   position: "absolute",
                   top: top ? width / 2 - (top * outWidth) / 14 : 2,
                   zIndex: 30,
@@ -367,12 +406,12 @@ export default function Result() {
                   top: topRightTop,
                   left: topRightLeft,
                   width: topRightLength,
-                  height: Math.max(outWidth * 0.0075, 1.5),
+                  height: Math.max(outWidth * 0.0075, 2),
                   zIndex: 30,
                   overflow: "hidden",
                   transform: `rotate(${adjustedTopRightAngle}deg)`,
                   transformOrigin: "0 0", // 회전 기준점 설정
-                  backgroundColor: "yellowgreen",
+                  backgroundColor: colors.graphLine,
                 }}
               />
             ) : Boolean(right) ? (
@@ -380,11 +419,11 @@ export default function Result() {
                 style={{
                   width:
                     (right * outWidth) / 14 +
-                    Math.max(outWidth * 0.0075, 1.5) / 2,
-                  height: Math.max(outWidth * 0.0075, 1.5),
-                  backgroundColor: "yellowgreen",
+                    Math.max(outWidth * 0.0075, 2) / 2,
+                  height: Math.max(outWidth * 0.0075, 2),
+                  backgroundColor: colors.graphLine,
                   position: "absolute",
-                  left: width / 2 - Math.max(outWidth * 0.0075, 1.5) / 2,
+                  left: width / 2 - Math.max(outWidth * 0.0075, 2) / 2,
                   zIndex: 30,
                 }}
               />
@@ -392,11 +431,11 @@ export default function Result() {
               Boolean(top) && (
                 <div
                   style={{
-                    width: Math.max(outWidth * 0.0075, 1.5),
+                    width: Math.max(outWidth * 0.0075, 2),
                     height:
                       (top * outWidth) / 14 +
-                      Math.max(outWidth * 0.0075, 1.5) / 2,
-                    backgroundColor: "yellowgreen",
+                      Math.max(outWidth * 0.0075, 2) / 2,
+                    backgroundColor: colors.graphLine,
                     position: "absolute",
                     top: top ? width / 2 - (top * outWidth) / 14 : 2,
                     zIndex: 30,
@@ -411,12 +450,12 @@ export default function Result() {
                   top: bottomRightTop,
                   left: bottomRightLeft,
                   width: bottomRightLength,
-                  height: Math.max(outWidth * 0.0075, 1.5),
+                  height: Math.max(outWidth * 0.0075, 2),
                   zIndex: 30,
                   overflow: "hidden",
                   transform: `rotate(${adjustedBottomRightAngle}deg)`,
                   transformOrigin: "0 0", // 회전 기준점 설정
-                  backgroundColor: "yellowgreen",
+                  backgroundColor: colors.graphLine,
                 }}
               />
             ) : Boolean(right) ? (
@@ -424,11 +463,11 @@ export default function Result() {
                 style={{
                   width:
                     (right * outWidth) / 14 +
-                    Math.max(outWidth * 0.0075, 1.5) / 2,
-                  height: Math.max(outWidth * 0.0075, 1.5),
-                  backgroundColor: "yellowgreen",
+                    Math.max(outWidth * 0.0075, 2) / 2,
+                  height: Math.max(outWidth * 0.0075, 2),
+                  backgroundColor: colors.graphLine,
                   position: "absolute",
-                  left: width / 2 - Math.max(outWidth * 0.0075, 1.5) / 2,
+                  left: width / 2 - Math.max(outWidth * 0.0075, 2) / 2,
                   zIndex: 30,
                 }}
               />
@@ -440,7 +479,7 @@ export default function Result() {
                     height:
                       (bottom * outWidth) / 14 +
                       Math.max(outWidth * 0.0075, 1.5) / 2,
-                    backgroundColor: "yellowgreen",
+                    backgroundColor: colors.graphLine,
                     position: "absolute",
                     top: width / 2 - Math.max(outWidth * 0.0075, 1.5) / 2,
                     zIndex: 30,
@@ -460,7 +499,7 @@ export default function Result() {
                   overflow: "hidden",
                   transform: `rotate(${adjustedBottomLeftAngle}deg)`,
                   transformOrigin: "0 0", // 회전 기준점 설정
-                  backgroundColor: "yellowgreen",
+                  backgroundColor: colors.graphLine,
                 }}
               />
             ) : Boolean(left) ? (
@@ -470,7 +509,7 @@ export default function Result() {
                     (left * outWidth) / 14 +
                     Math.max(outWidth * 0.0075, 1.5) / 2,
                   height: Math.max(outWidth * 0.0075, 1.5),
-                  backgroundColor: "yellowgreen",
+                  backgroundColor: colors.graphLine,
                   position: "absolute",
                   left: width / 2 - (left * outWidth) / 14,
                   zIndex: 30,
@@ -481,13 +520,28 @@ export default function Result() {
                 style={{
                   width: Math.max(outWidth * 0.0075, 1.5),
                   height: (bottom * outWidth) / 14,
-                  backgroundColor: "yellowgreen",
+                  backgroundColor: colors.graphLine,
                   position: "absolute",
                   top: width / 2,
                   zIndex: 30,
                 }}
               />
             )}
+          </div>
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              flex: 1,
+            }}
+          >
+            <Content title={"인간유형"}>
+              <div></div>
+            </Content>
+            <Content title={"해설"} colored style={{ marginTop: -8 }}>
+              <div></div>
+            </Content>
           </div>
         </A4Layout>
         <A4Layout page={3}>여기는 3페이지</A4Layout>

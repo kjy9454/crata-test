@@ -1,50 +1,57 @@
+import { colors } from "../styles/colors";
 import Icon from "./icon";
 
 export default function UserInfo() {
+  const borderStyle = `1px solid ${colors.primary}`;
+
   const Head = ({ children, last }) => {
     return (
       <div
         style={{
-          backgroundColor: "skyblue",
-          padding: 8,
-          borderTop: "1px solid blue",
-          borderBottom: last ? "1px solid blue" : "none",
-          fontSize: "1rem",
+          backgroundColor: colors.tableBackground,
+          padding: 2,
+          borderTop: borderStyle,
+          borderBottom: last ? borderStyle : "none",
+          fontSize: "14px",
           justifyContent: "center",
           display: "flex",
           alignItems: "center",
+          color: colors.navy,
+          fontWeight: 600,
         }}
       >
         {children}
       </div>
     );
   };
+
   const Body = ({ children, last }) => {
     return (
       <div
         style={{
-          borderTop: "1px solid blue",
-          padding: "8px 10px",
-          borderBottom: last ? "1px solid blue" : "none",
-          fontSize: "1rem",
+          borderTop: borderStyle,
+          padding: "2px 10px",
+          borderBottom: last ? borderStyle : "none",
+          fontSize: "14px",
         }}
       >
         {children}
       </div>
     );
   };
+
   return (
     <div style={{ width: "100%" }}>
-      <div style={{ display: "flex", marginBottom: 16, alignItems: "center" }}>
-        <Icon iconName={"Icon3"} />
-        <div style={{ marginLeft: 8, fontSize: 24, fontWeight: "bold" }}>
+      <div style={{ display: "flex", marginBottom: 8, alignItems: "center" }}>
+        <Icon iconName={"Icon3"} iconSize={20} />
+        <div style={{ marginLeft: 8, fontSize: 18, fontWeight: 600 }}>
           작성자 정보
         </div>
       </div>
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "120px auto 120px auto",
+          gridTemplateColumns: "120px 1fr 120px 1fr",
         }}
       >
         <Head>이름</Head>
