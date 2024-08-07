@@ -9,7 +9,6 @@ export default function Content({ title, colored, style, children }) {
         flexDirection: "column",
         justifyContent: "space-between",
         width: "100%",
-        height: "100%",
         border: `1px solid ${colors.primary}`,
         margin: 16,
         ...style,

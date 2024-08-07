@@ -9,7 +9,7 @@ export default function CrataInfo() {
     return <span style={{ fontSize: 13 }}>{children}</span>;
   };
   return (
-    <Content title="CRATA분석의 개요" colored>
+    <Content title="CRATA분석의 개요" colored style={{ height: "100%" }}>
       <div style={{ display: "flex", flexDirection: "column" }}>
         <Title>인간유형</Title>
         <Text>
