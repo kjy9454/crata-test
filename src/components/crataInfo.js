@@ -1,17 +1,21 @@
 import Content from "./content";
 
 export default function CrataInfo() {
-  const Title = ({ children }) => {
-    return <span style={{ fontWeight: 700, fontSize: 14 }}>{children}</span>;
+  const Title = ({ children, style }) => {
+    return (
+      <span style={{ fontWeight: 700, fontSize: 14, lineHeight: 2, ...style }}>
+        {children}
+      </span>
+    );
   };
 
   const Text = ({ children }) => {
-    return <span style={{ fontSize: 13 }}>{children}</span>;
+    return <span style={{ fontSize: 14, lineHeight: 1.4 }}>{children}</span>;
   };
   return (
     <Content title="CRATA분석의 개요" colored style={{ height: "100%" }}>
       <div style={{ display: "flex", flexDirection: "column" }}>
-        <Title>인간유형</Title>
+        <Title style={{ marginTop: 4 }}>인간유형</Title>
         <Text>
           인간유형은 사람의 기질을 기반한 행동방식과 자신의 욕구를 분석하여
           자신을 이해하는데 도움을 준다. 기질의 우선적 작용은 자신우선형과
@@ -46,7 +50,7 @@ export default function CrataInfo() {
           타이밍과 스타일을 중요하게 여기며 자기를 잘 이해한 후 결정하고
           행동하는 것이 중요하다.
         </Text>
-        <Title>행동유형</Title>
+        <Title style={{ marginTop: 10 }}>행동유형</Title>
         <Text>
           행동유형은 자신의 무의식적으로 타고난 생존의 방식을 분석하여 자신의
           행동과 조직생활에서의 행동 을 분석하고 조직 구성원간의 협업을 할 때
@@ -55,7 +59,7 @@ export default function CrataInfo() {
           자기성장형(Self-growth type)과 조직성장형(Group growth type)이 있고
           두가지 유형이 혼합된 혼 합형도 있다.
         </Text>
-        <Title>또래집단 행동유형</Title>
+        <Title style={{ marginTop: 10 }}>또래집단 행동유형</Title>
         <Text>
           또래 집단행동방식은 의사결정방식과 자기방어방식이 있다. 의사결정방식은
           자신의 의사를 결정할 때 또래에 어떤 영향을 받는지를 분석하여 또래
@@ -66,7 +70,7 @@ export default function CrataInfo() {
           관계의 문제점이나 자신의 방식을 인지하므로 해서 문제 행동을 진단하고
           개선할 수 있도록 돕는 분석이다.
         </Text>
-        <Title>정서적욕구방식</Title>
+        <Title style={{ marginTop: 10 }}>정서적욕구방식</Title>
         <Text>
           정서적 욕구 분석은 자신의 욕구를 이해하고 해소되지 않은 욕구로 인해
           현재에 집중하지 못하고 미해결 과제로 남은 욕구를 인지하고 해결할 수

@@ -40,11 +40,13 @@ export default function A4Layout({ children, style, page }) {
                 }}
               >
                 {"CRATA "}
-                <span style={{ fontSize: 24, fontWeight: "normal" }}>
+                <span style={{ fontSize: 24, fontWeight: 500 }}>
                   분석보고서
                 </span>
               </span>
-              <span style={{ fontSize: 14 }}>대학생&성인용</span>
+              <span style={{ fontSize: 14, fontWeight: 500 }}>
+                대학생&성인용
+              </span>
             </div>
             <div
               style={{

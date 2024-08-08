@@ -45,6 +45,7 @@ export default function BehaviorCategory() {
           flexDirection: "column",
           color: colors.navy,
           width: "100%",
+          fontSize: 14,
         }}
       >
         <div
@@ -109,13 +110,19 @@ export default function BehaviorCategory() {
             {rightType.alphabet}
           </div>
         </div>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginTop: 4,
+          }}
+        >
           <div style={{ display: "flex" }}>
             <span style={{ fontWeight: 600, color: colors.gray }}>
               {leftType.kr}
             </span>
             <span style={{ display: "flex", color: colors.gray }}>
-              (<p style={{ fontWeight: 600 }}>{leftType.alphabet}</p>
+              (<span style={{ fontWeight: 600 }}>{leftType.alphabet}</span>
               {leftType.en})
             </span>
           </div>
@@ -124,7 +131,7 @@ export default function BehaviorCategory() {
               {rightType.kr}
             </span>
             <span style={{ display: "flex", color: colors.gray }}>
-              (<p style={{ fontWeight: 600 }}>{rightType.alphabet}</p>
+              (<span style={{ fontWeight: 600 }}>{rightType.alphabet}</span>
               {rightType.en})
             </span>
           </div>
@@ -138,11 +145,9 @@ export default function BehaviorCategory() {
       style={{
         height: "100%",
         display: "flex",
-        alignItems: "center",
         flexDirection: "column",
-        fontSize: 16,
-        padding: "14px 60px",
-        justifyContent: "space-between",
+        margin: "0 60px",
+        justifyContent: "space-evenly",
       }}
     >
       {CATEGORY_LIST.map((item) => (

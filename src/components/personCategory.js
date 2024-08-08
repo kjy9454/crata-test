@@ -12,6 +12,7 @@ export default function PersonCategory() {
         display: "flex",
         alignItems: "center",
         fontSize: 14,
+        lineHeight: 1.6,
       }}
     >
       <div
@@ -19,18 +20,19 @@ export default function PersonCategory() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          padding: 6,
         }}
       >
         <span style={{ fontWeight: 600 }}>내적자극형</span>
         <span style={{ display: "flex" }}>
-          (<p style={{ fontWeight: 600 }}>I</p>nternal stimulation)
+          (<span style={{ fontWeight: 600 }}>I</span>nternal stimulation)
         </span>
       </div>
       <div
         style={{
           flex: 1,
           margin: "4px 10px",
-          padding: 10,
+          padding: 12,
           border: `1px solid ${colors.primary}`,
           borderRadius: 999,
           display: "flex",
@@ -40,6 +42,9 @@ export default function PersonCategory() {
       >
         <div
           style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
             borderRadius: 999,
             border: `1px solid ${
               stimulation === "I" ? colors.navy : "transparent"
@@ -61,12 +66,12 @@ export default function PersonCategory() {
               borderRadius: 999,
               flex: 1,
               justifyContent: "center",
-              margin: "0px 10px",
+              margin: "0px 12px",
             }}
           >
             <span style={{ fontWeight: 600 }}>성장형</span>
             <span style={{ display: "flex" }}>
-              (<p style={{ fontWeight: 600 }}>G</p>rowth type)
+              (<span style={{ fontWeight: 600 }}>G</span>rowth type)
             </span>
           </div>
           <div
@@ -77,12 +82,12 @@ export default function PersonCategory() {
               borderRadius: 999,
               flex: 1,
               justifyContent: "center",
-              margin: "0px 10px",
+              margin: "0px 12px",
             }}
           >
             <span style={{ fontWeight: 600 }}>발산형</span>
             <span style={{ display: "flex" }}>
-              (<p style={{ fontWeight: 600 }}>D</p>ivergent type)
+              (<span style={{ fontWeight: 600 }}>D</span>ivergent type)
             </span>
           </div>
           <div
@@ -93,12 +98,12 @@ export default function PersonCategory() {
               borderRadius: 999,
               flex: 1,
               justifyContent: "center",
-              margin: "0px 10px",
+              margin: "0px 12px",
             }}
           >
             <span style={{ fontWeight: 600 }}>균형형</span>
             <span style={{ display: "flex" }}>
-              (<p style={{ fontWeight: 600 }}>B</p>alance type)
+              (<span style={{ fontWeight: 600 }}>B</span>alance type)
             </span>
           </div>
           <div
@@ -109,12 +114,12 @@ export default function PersonCategory() {
               borderRadius: 999,
               flex: 1,
               justifyContent: "center",
-              margin: "0px 10px",
+              margin: "0px 12px",
             }}
           >
             <span style={{ fontWeight: 600 }}>수확형</span>
             <span style={{ display: "flex" }}>
-              (<p style={{ fontWeight: 600 }}>H</p>arvesting type)
+              (<span style={{ fontWeight: 600 }}>H</span>arvesting type)
             </span>
           </div>
           <div
@@ -125,12 +130,12 @@ export default function PersonCategory() {
               borderRadius: 999,
               flex: 1,
               justifyContent: "center",
-              margin: "0px 10px",
+              margin: "0px 12px",
             }}
           >
             <span style={{ fontWeight: 600 }}>축적형</span>
             <span style={{ display: "flex" }}>
-              (<p style={{ fontWeight: 600 }}>A</p>ccumulation type)
+              (<span style={{ fontWeight: 600 }}>A</span>ccumulation type)
             </span>
           </div>
         </div>
@@ -154,11 +159,12 @@ export default function PersonCategory() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          padding: 6,
         }}
       >
         <span style={{ fontWeight: 600 }}>외적자극형</span>
         <span style={{ display: "flex" }}>
-          (<p style={{ fontWeight: 600 }}>E</p>xternal stimulation)
+          (<span style={{ fontWeight: 600 }}>E</span>xternal stimulation)
         </span>
       </div>
     </div>

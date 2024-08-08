@@ -23,16 +23,12 @@ export default function PdfTitle() {
           alignItems: "flex-end",
         }}
       >
-        <span style={{ fontSize: 24 }}>다면적 행동유형 검사</span>
-        <span style={{ fontSize: 48, fontWeight: "bold" }}>
+        <span style={{ fontSize: 32 }}>다면적 행동유형 검사</span>
+        <span style={{ fontSize: 52, fontWeight: 700 }}>
           CRATA
-          <span style={{ fontWeight: "normal", marginLeft: 24 }}>
-            분석 보고서
-          </span>
+          <span style={{ fontWeight: 400, marginLeft: 24 }}>분석 보고서</span>
         </span>
-        <span style={{ fontSize: 24, fontWeight: "bold", marginTop: -16 }}>
-          대학생&성인용
-        </span>
+        <span style={{ fontSize: 32, fontWeight: 700 }}>대학생&성인용</span>
       </div>
     </div>
   );

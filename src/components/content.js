@@ -1,7 +1,14 @@
 import { colors } from "../styles/colors";
 import Icon from "./icon";
 
-export default function Content({ title, colored, style, children }) {
+export default function Content({
+  title,
+  subTitle,
+  colored,
+  style,
+  bodyStyle,
+  children,
+}) {
   return (
     <div
       style={{
@@ -19,17 +26,21 @@ export default function Content({ title, colored, style, children }) {
           backgroundColor: colored ? colors.primary : "transparent",
           color: colored ? "#fff" : "#000",
           display: "flex",
-          padding: "8px 10px",
+          padding: "8px 14px",
           alignItems: "center",
           borderBottom: `1px solid ${colors.primary}`,
+          justifyContent: "space-between",
         }}
       >
-        <Icon iconName={colored ? "Icon2" : "Icon3"} iconSize={16} />
-        <span style={{ marginLeft: 4, fontWeight: 600, fontSize: 16 }}>
-          {title}
-        </span>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <Icon iconName={colored ? "Icon2" : "Icon3"} iconSize={16} />
+          <span style={{ marginLeft: 4, fontWeight: 600 }}>{title}</span>
+        </div>
+        <span>{subTitle}</span>
       </div>
-      <div style={{ height: "100%", padding: 10 }}>{children}</div>
+      <div style={{ height: "100%", padding: 12, ...bodyStyle }}>
+        {children}
+      </div>
     </div>
   );
 }

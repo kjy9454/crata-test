@@ -30,7 +30,7 @@ export default function UserInfo() {
       <div
         style={{
           borderTop: borderStyle,
-          padding: "2px 10px",
+          padding: "4px 10px",
           borderBottom: last ? borderStyle : "none",
           fontSize: "14px",
         }}

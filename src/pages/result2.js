@@ -13,6 +13,11 @@ import Graph from "../components/graph";
 import BehaviorCategory from "../components/behaviorCategory";
 import Explanation from "../components/explanation";
 import FriendBehaviorCategory from "../components/friendBehaviorCategory";
+import Table, { TD, TH, TR } from "../components/table";
+import Icon from "../components/icon";
+import { colors } from "../styles/colors";
+import Solution from "../components/solution";
+import SelfAnalysis from "../components/selfAnalysis";
 
 export default function Result() {
   const [colorSize, setColorSize] = useState(3);
@@ -80,7 +85,7 @@ export default function Result() {
                 value={birthDate}
                 onChange={(e) => setBirthDate(e.target.value)}
               />
-              <p>오라소마 기준 날짜</p>
+              <span>오라소마 기준 날짜</span>
             </div>
             <div style={{ margin: 10 }}>오라소마 크기</div>
             {new Array(7).fill("a").map((x, i) => (
@@ -276,6 +281,289 @@ export default function Result() {
               <div></div>
             </Content>
           </div>
+        </A4Layout>
+        <A4Layout page={7}>
+          <Graph
+            colorSize={colorSize}
+            top={top}
+            left={left}
+            right={right}
+            bottom={bottom}
+            birthDate={birthDate}
+          />
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              flex: 1,
+            }}
+          >
+            <Content
+              title="정서적 만족 유형"
+              subTitle={"세상을 가치롭게 변화시키는 개혁자"}
+              style={{ height: "100%" }}
+              bodyStyle={{ padding: 0 }}
+            >
+              <Table>
+                <thead>
+                  {["인지방식", "행동방식"].map((data, index) => (
+                    <TH key={index} index={index}>
+                      {data}
+                    </TH>
+                  ))}
+                </thead>
+                <tbody>
+                  {["· 인지 :", "· 행동 :"].map((data, index) => (
+                    <TD key={index} style={{ padding: 14 }} index={index}>
+                      {data}
+                    </TD>
+                  ))}
+                </tbody>
+              </Table>
+            </Content>
+          </div>
+        </A4Layout>
+        <A4Layout page={8}>
+          <Graph
+            colorSize={colorSize}
+            top={top}
+            left={left}
+            right={right}
+            bottom={bottom}
+            birthDate={birthDate}
+          />
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              flex: 1,
+            }}
+          >
+            <Content
+              title="기본 역량 분석"
+              style={{ height: "100%" }}
+              bodyStyle={{ padding: 0 }}
+            >
+              <Table>
+                <thead>
+                  {["역량", "인지", "행동"].map((data, index) => (
+                    <TH key={index} index={index}>
+                      {data}
+                    </TH>
+                  ))}
+                </thead>
+                <tbody>
+                  {[
+                    [
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "center",
+                          textAlign: "center",
+                          height: "100%",
+                        }}
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            marginBottom: 6,
+                          }}
+                        >
+                          <Icon iconName={"Round"} iconSize={12} />
+                          <Icon
+                            iconName={"RoundFilled"}
+                            iconSize={12}
+                            style={{ marginLeft: 6 }}
+                          />
+                        </div>
+                        <span style={{ fontWeight: 500 }}>중심 역량</span>
+                        <span style={{ fontSize: 12 }}>
+                          (자신의 뿌리 역할을 하는 능력)
+                        </span>
+                        <span
+                          style={{
+                            fontWeight: 500,
+                            marginTop: 4,
+                          }}
+                        >
+                          S E
+                        </span>
+                      </div>,
+                      <div style={{ display: "flex" }}>
+                        <span style={{ fontWeight: 500 }}>전략형</span>(
+                        <span style={{ fontWeight: 500 }}>S</span>
+                        trategic type)
+                      </div>,
+                      <div style={{ display: "flex" }}>
+                        <span style={{ fontWeight: 500 }}>경험형</span>(
+                        <span style={{ fontWeight: 500 }}>E</span>
+                        xperiential type)
+                      </div>,
+                    ],
+                    [
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "center",
+                          textAlign: "center",
+                          height: "100%",
+                        }}
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            marginBottom: 6,
+                          }}
+                        >
+                          <Icon iconName={"Star"} iconSize={12} />
+                          <Icon
+                            iconName={"StarFilled"}
+                            iconSize={12}
+                            style={{ marginLeft: 6 }}
+                          />
+                        </div>
+                        <span style={{ fontWeight: 500 }}>핵심 역량</span>
+                        <span style={{ fontSize: 12 }}>
+                          (자신의 강점이 되는 능력)
+                        </span>
+                        <span
+                          style={{
+                            fontWeight: 500,
+                          }}
+                        >
+                          E E
+                        </span>
+                      </div>,
+                      <div style={{ display: "flex" }}>
+                        <span style={{ fontWeight: 500 }}>경험형</span>(
+                        <span style={{ fontWeight: 500 }}>E</span>
+                        xperiential type)
+                      </div>,
+                      <div style={{ display: "flex" }}>
+                        <span style={{ fontWeight: 500 }}>경험형</span>(
+                        <span style={{ fontWeight: 500 }}>E</span>
+                        xperiential type)
+                      </div>,
+                    ],
+                    [
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "center",
+                          textAlign: "center",
+                          height: "100%",
+                        }}
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            marginBottom: 6,
+                          }}
+                        >
+                          <Icon iconName={"Triangle"} iconSize={12} />
+                        </div>
+                        <span style={{ fontWeight: 500 }}>성장 역량</span>
+                        <span style={{ fontSize: 12 }}>
+                          (자신을 변화 시키는 능력)
+                        </span>
+                        <span
+                          style={{
+                            fontWeight: 500,
+                            marginTop: 4,
+                          }}
+                        >
+                          S
+                        </span>
+                      </div>,
+                      <div></div>,
+                      <div style={{ display: "flex" }}>
+                        <span style={{ fontWeight: 500 }}>전략형</span>(
+                        <span style={{ fontWeight: 500 }}>S</span>
+                        trategic type)
+                      </div>,
+                    ],
+                    [
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "center",
+                          textAlign: "center",
+                          height: "100%",
+                        }}
+                      >
+                        <span style={{ fontWeight: 500 }}>잠재 역량</span>
+                        <span style={{ fontSize: 12 }}>
+                          (무의식에 숨겨진 능력)
+                        </span>
+                      </div>,
+                      <div></div>,
+                      <div></div>,
+                    ],
+                  ].map((rowData, index) => (
+                    <TR key={index} index={index} totalRow={4}>
+                      {rowData.map((data, index) => (
+                        <TD key={index} style={{ padding: 6 }} index={index}>
+                          {data}
+                        </TD>
+                      ))}
+                    </TR>
+                  ))}
+                </tbody>
+              </Table>
+            </Content>
+          </div>
+        </A4Layout>
+        <A4Layout page={9}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            <Content title={"자가분석"}>
+              <SelfAnalysis />
+            </Content>
+            <Content
+              title={"해설"}
+              style={{ flex: 1, marginTop: -8 }}
+              colored
+            ></Content>
+          </div>
+        </A4Layout>
+        <A4Layout page={10}>
+          <Content title={"솔루션 (에너지 분석)"}>
+            <Solution />
+          </Content>
+          <Table
+            style={{
+              borderLeft: `1px solid ${colors.primary}`,
+              borderRight: `1px solid ${colors.primary}`,
+            }}
+          >
+            <thead>
+              {["인지 에너지", "행동 에너지"].map((data, index) => (
+                <TH key={index} index={index}>
+                  {data}
+                </TH>
+              ))}
+            </thead>
+            <tbody>
+              {["", ""].map((data, index) => (
+                <TD key={index} index={index}></TD>
+              ))}
+            </tbody>
+          </Table>
         </A4Layout>
       </div>
     </Layout>

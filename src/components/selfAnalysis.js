@@ -1,22 +1,43 @@
+import { useState } from "react";
 import { colors } from "../styles/colors";
 
-export default function FriendBehaviorCategory() {
+export default function SelfAnalysis() {
+  const [stimulation, setStimulation] = useState("I");
+  const [type, setType] = useState("H");
   const CATEGORY_LIST = [
     {
-      title: "의사결정방식",
-      leftType: { alphabet: "S", kr: "혼자형", en: "tand-alone type" },
-      rightType: { alphabet: "G", kr: "그룹형", en: "roup type" },
+      title: "성과만족방식",
+      leftType: { alphabet: "S", kr: "자기성장형", en: "elf-growth type" },
+      rightType: { alphabet: "G", kr: "조직성장형", en: "roup growh type" },
+      selectedType: ["S", "G"],
+    },
+    {
+      title: "정보수집방식",
+      leftType: { alphabet: "I", kr: "직관형", en: "ntutive type" },
+      rightType: { alphabet: "E", kr: "경험형", en: "xperiential type" },
+      selectedType: ["E"],
+    },
+    {
+      title: "능력표현방식",
+      leftType: { alphabet: "D", kr: "설계형", en: "esign type" },
+      rightType: { alphabet: "T", kr: "기술형", en: "echnical type" },
+      selectedType: [],
+    },
+    {
+      title: "목표실행방식",
+      leftType: { alphabet: "T", kr: "전술형", en: "actical type" },
+      rightType: { alphabet: "S", kr: "전략형", en: "trategic type" },
       selectedType: ["S"],
     },
     {
-      title: "자기방어방식",
-      leftType: { alphabet: "M", kr: "지성형", en: "ind-set type" },
-      rightType: { alphabet: "E", kr: "감성형", en: "motional type" },
+      title: "목적성취방식",
+      leftType: { alphabet: "T", kr: "과제형", en: "ask type" },
+      rightType: { alphabet: "R", kr: "관계형", en: "elational type" },
       selectedType: [],
     },
   ];
 
-  const Item = ({ title, leftType, rightType, selectedType, index }) => {
+  const Item = ({ title, leftType, rightType, selectedType }) => {
     return (
       <div
         style={{
@@ -25,7 +46,6 @@ export default function FriendBehaviorCategory() {
           color: colors.navy,
           width: "100%",
           fontSize: 14,
-          marginTop: index ? 6 : 0,
         }}
       >
         <div
@@ -90,19 +110,13 @@ export default function FriendBehaviorCategory() {
             {rightType.alphabet}
           </div>
         </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginTop: 4,
-          }}
-        >
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div style={{ display: "flex" }}>
             <span style={{ fontWeight: 600, color: colors.gray }}>
               {leftType.kr}
             </span>
             <span style={{ display: "flex", color: colors.gray }}>
-              (<span style={{ fontWeight: 600 }}>{leftType.alphabet}</span>
+              (<p style={{ fontWeight: 600 }}>{leftType.alphabet}</p>
               {leftType.en})
             </span>
           </div>
@@ -111,7 +125,7 @@ export default function FriendBehaviorCategory() {
               {rightType.kr}
             </span>
             <span style={{ display: "flex", color: colors.gray }}>
-              (<span style={{ fontWeight: 600 }}>{rightType.alphabet}</span>
+              (<p style={{ fontWeight: 600 }}>{rightType.alphabet}</p>
               {rightType.en})
             </span>
           </div>
@@ -123,17 +137,17 @@ export default function FriendBehaviorCategory() {
   return (
     <div
       style={{
+        height: "100%",
         display: "flex",
         alignItems: "center",
         flexDirection: "column",
         fontSize: 16,
-        padding: "6px 60px",
+        padding: "14px 60px",
         justifyContent: "space-between",
-        height: "100%",
       }}
     >
-      {CATEGORY_LIST.map((item, index) => (
-        <Item key={index} {...item} index={index} />
+      {CATEGORY_LIST.map((item) => (
+        <Item {...item} />
       ))}
     </div>
   );
