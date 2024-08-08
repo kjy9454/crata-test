@@ -20,7 +20,7 @@ export default function PersonCategory() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          padding: 6,
+          padding: 4,
         }}
       >
         <span style={{ fontWeight: 600 }}>내적자극형</span>
@@ -32,7 +32,7 @@ export default function PersonCategory() {
         style={{
           flex: 1,
           margin: "4px 10px",
-          padding: 12,
+          padding: 8,
           border: `1px solid ${colors.primary}`,
           borderRadius: 999,
           display: "flex",
@@ -159,7 +159,7 @@ export default function PersonCategory() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          padding: 6,
+          padding: 4,
         }}
       >
         <span style={{ fontWeight: 600 }}>외적자극형</span>

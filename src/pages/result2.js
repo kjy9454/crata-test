@@ -41,7 +41,7 @@ export default function Result() {
       return;
     }
     await html2canvas(input, {
-      scale: 2,
+      scale: 1,
       windowWidth: document.body.scrollWidth,
       windowHeight: document.body.scrollHeight,
     }).then((canvas) => {
@@ -51,7 +51,7 @@ export default function Result() {
       let pageHeight = imgWidth * 1.414;
       let imgHeight = (canvas.height * imgWidth) / canvas.width;
       let heightLeft = imgHeight;
-
+      console.log(heightLeft);
       let pdf = new jsPDF("p", "mm");
       let position = 0;
 
@@ -307,18 +307,22 @@ export default function Result() {
             >
               <Table>
                 <thead>
-                  {["인지방식", "행동방식"].map((data, index) => (
-                    <TH key={index} index={index}>
-                      {data}
-                    </TH>
-                  ))}
+                  <tr>
+                    {["인지방식", "행동방식"].map((data, index) => (
+                      <TH key={index} index={index}>
+                        {data}
+                      </TH>
+                    ))}
+                  </tr>
                 </thead>
                 <tbody>
-                  {["· 인지 :", "· 행동 :"].map((data, index) => (
-                    <TD key={index} style={{ padding: 14 }} index={index}>
-                      {data}
-                    </TD>
-                  ))}
+                  <tr>
+                    {["· 인지 :", "· 행동 :"].map((data, index) => (
+                      <TD key={index} style={{ padding: 14 }} index={index}>
+                        {data}
+                      </TD>
+                    ))}
+                  </tr>
                 </tbody>
               </Table>
             </Content>
@@ -348,11 +352,13 @@ export default function Result() {
             >
               <Table>
                 <thead>
-                  {["역량", "인지", "행동"].map((data, index) => (
-                    <TH key={index} index={index}>
-                      {data}
-                    </TH>
-                  ))}
+                  <tr>
+                    {["역량", "인지", "행동"].map((data, index) => (
+                      <TH key={index} index={index}>
+                        {data}
+                      </TH>
+                    ))}
+                  </tr>
                 </thead>
                 <tbody>
                   {[
@@ -552,16 +558,20 @@ export default function Result() {
             }}
           >
             <thead>
-              {["인지 에너지", "행동 에너지"].map((data, index) => (
-                <TH key={index} index={index}>
-                  {data}
-                </TH>
-              ))}
+              <tr>
+                {["인지 에너지", "행동 에너지"].map((data, index) => (
+                  <TH key={index} index={index}>
+                    {data}
+                  </TH>
+                ))}
+              </tr>
             </thead>
             <tbody>
-              {["", ""].map((data, index) => (
-                <TD key={index} index={index}></TD>
-              ))}
+              <tr>
+                {["", ""].map((data, index) => (
+                  <TD key={index} index={index}></TD>
+                ))}
+              </tr>
             </tbody>
           </Table>
         </A4Layout>

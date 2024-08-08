@@ -3,6 +3,7 @@ import { colors } from "../styles/colors";
 import { PDF_PADDING } from "../utils/consts";
 export default function A4Layout({ children, style, page }) {
   const { width, maxWidth } = useScreenSize();
+
   return (
     <div
       style={{
@@ -11,6 +12,7 @@ export default function A4Layout({ children, style, page }) {
         height: width * 1.414,
         position: "relative",
         padding: PDF_PADDING,
+        boxSizing: "border-box",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",

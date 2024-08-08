@@ -150,8 +150,8 @@ export default function BehaviorCategory() {
         justifyContent: "space-evenly",
       }}
     >
-      {CATEGORY_LIST.map((item) => (
-        <Item {...item} />
+      {CATEGORY_LIST.map((item, index) => (
+        <Item key={index} {...item} />
       ))}
     </div>
   );

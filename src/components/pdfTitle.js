@@ -11,7 +11,8 @@ export default function PdfTitle() {
         borderTopLeftRadius: 16,
         width: "100%",
         padding: "20px 36px",
-        marginBottom: 36,
+        margin: 36,
+        boxSizing: "border-box",
       }}
     >
       <Icon iconName="Icon4" iconSize={80} />
@@ -23,12 +24,12 @@ export default function PdfTitle() {
           alignItems: "flex-end",
         }}
       >
-        <span style={{ fontSize: 32 }}>다면적 행동유형 검사</span>
-        <span style={{ fontSize: 52, fontWeight: 700 }}>
+        <span style={{ fontSize: 28 }}>다면적 행동유형 검사</span>
+        <span style={{ fontSize: 48, fontWeight: 700 }}>
           CRATA
           <span style={{ fontWeight: 400, marginLeft: 24 }}>분석 보고서</span>
         </span>
-        <span style={{ fontSize: 32, fontWeight: 700 }}>대학생&성인용</span>
+        <span style={{ fontSize: 28, fontWeight: 700 }}>대학생&성인용</span>
       </div>
     </div>
   );

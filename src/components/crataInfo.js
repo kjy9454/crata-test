@@ -10,7 +10,7 @@ export default function CrataInfo() {
   };
 
   const Text = ({ children }) => {
-    return <span style={{ fontSize: 14, lineHeight: 1.4 }}>{children}</span>;
+    return <span style={{ fontSize: 14, lineHeight: 1.25 }}>{children}</span>;
   };
   return (
     <Content title="CRATA분석의 개요" colored style={{ height: "100%" }}>
