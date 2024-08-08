@@ -1,28 +1,31 @@
 {
   "files": {
-    "main.css": "/crata-test/static/css/main.2b268a25.css",
-    "main.js": "/crata-test/static/js/main.9263e046.js",
+    "main.css": "/crata-test/static/css/main.3a70b5c2.css",
+    "main.js": "/crata-test/static/js/main.47b47fa4.js",
     "static/js/703.d39846d2.chunk.js": "/crata-test/static/js/703.d39846d2.chunk.js",
     "static/js/598.c1f8d626.chunk.js": "/crata-test/static/js/598.c1f8d626.chunk.js",
     "static/js/787.3341b1f5.chunk.js": "/crata-test/static/js/787.3341b1f5.chunk.js",
+    "static/media/NanumSquareB.ttf": "/crata-test/static/media/NanumSquareB.ebe0aa17b7967cd61f16.ttf",
+    "static/media/NanumSquareEB.ttf": "/crata-test/static/media/NanumSquareEB.e54714432fdd6e1724a7.ttf",
+    "static/media/NanumSquareR.ttf": "/crata-test/static/media/NanumSquareR.924c33f60f994924964c.ttf",
     "static/media/4.svg": "/crata-test/static/media/4.4a642042b72f784be5a47ace135d9a9c.svg",
     "static/media/3.svg": "/crata-test/static/media/3.160709c765eed0943ba3b6f451d11f57.svg",
     "index.html": "/crata-test/index.html",
     "static/media/1.svg": "/crata-test/static/media/1.520e062001c74ef193c11f9242dda9cb.svg",
-    "static/media/star.svg": "/crata-test/static/media/star.0a71c3364b943046648cbcfcc75185b4.svg",
     "static/media/2.svg": "/crata-test/static/media/2.d89f0b513faac467e651bd93ea78a1ac.svg",
-    "static/media/round.svg": "/crata-test/static/media/round.a7ed9f90ea9608e40f565cb14b832144.svg",
-    "static/media/star-filled.svg": "/crata-test/static/media/star-filled.8578c58c20501c7f9bc1177fa67b96ee.svg",
-    "static/media/triangle.svg": "/crata-test/static/media/triangle.15f47488be21a067304b89282f2c663f.svg",
-    "static/media/round-filled.svg": "/crata-test/static/media/round-filled.04c9d9f781cd1dd8ebb0505f99e179a1.svg",
-    "main.2b268a25.css.map": "/crata-test/static/css/main.2b268a25.css.map",
-    "main.9263e046.js.map": "/crata-test/static/js/main.9263e046.js.map",
+    "static/media/star.svg": "/crata-test/static/media/star.e0a58a85046afd89e3f6bc6ca3170f6d.svg",
+    "static/media/round.svg": "/crata-test/static/media/round.323d0531e223f8abe352049ee00b63ef.svg",
+    "static/media/star-filled.svg": "/crata-test/static/media/star-filled.ef2c8c4dee9c2e0b6ea55c19334e82e0.svg",
+    "static/media/triangle.svg": "/crata-test/static/media/triangle.0424e0544001b41dce5d6e63cd720701.svg",
+    "static/media/round-filled.svg": "/crata-test/static/media/round-filled.2f85099dfefc23d93f4090eb7a309633.svg",
+    "main.3a70b5c2.css.map": "/crata-test/static/css/main.3a70b5c2.css.map",
+    "main.47b47fa4.js.map": "/crata-test/static/js/main.47b47fa4.js.map",
     "703.d39846d2.chunk.js.map": "/crata-test/static/js/703.d39846d2.chunk.js.map",
     "598.c1f8d626.chunk.js.map": "/crata-test/static/js/598.c1f8d626.chunk.js.map",
     "787.3341b1f5.chunk.js.map": "/crata-test/static/js/787.3341b1f5.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2b268a25.css",
-    "static/js/main.9263e046.js"
+    "static/css/main.3a70b5c2.css",
+    "static/js/main.47b47fa4.js"
   ]
 }
