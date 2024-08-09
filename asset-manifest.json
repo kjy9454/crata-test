@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/crata-test/static/css/main.3a70b5c2.css",
-    "main.js": "/crata-test/static/js/main.388a3226.js",
+    "main.js": "/crata-test/static/js/main.7bbf0e1b.js",
     "static/js/703.d39846d2.chunk.js": "/crata-test/static/js/703.d39846d2.chunk.js",
     "static/js/598.c1f8d626.chunk.js": "/crata-test/static/js/598.c1f8d626.chunk.js",
     "static/js/787.3341b1f5.chunk.js": "/crata-test/static/js/787.3341b1f5.chunk.js",
@@ -19,13 +19,13 @@
     "static/media/triangle.svg": "/crata-test/static/media/triangle.0424e0544001b41dce5d6e63cd720701.svg",
     "static/media/round-filled.svg": "/crata-test/static/media/round-filled.2f85099dfefc23d93f4090eb7a309633.svg",
     "main.3a70b5c2.css.map": "/crata-test/static/css/main.3a70b5c2.css.map",
-    "main.388a3226.js.map": "/crata-test/static/js/main.388a3226.js.map",
+    "main.7bbf0e1b.js.map": "/crata-test/static/js/main.7bbf0e1b.js.map",
     "703.d39846d2.chunk.js.map": "/crata-test/static/js/703.d39846d2.chunk.js.map",
     "598.c1f8d626.chunk.js.map": "/crata-test/static/js/598.c1f8d626.chunk.js.map",
     "787.3341b1f5.chunk.js.map": "/crata-test/static/js/787.3341b1f5.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3a70b5c2.css",
-    "static/js/main.388a3226.js"
+    "static/js/main.7bbf0e1b.js"
   ]
 }
