@@ -549,6 +549,8 @@ export default function Result() {
             style={{
               borderLeft: `1px solid ${colors.primary}`,
               borderRight: `1px solid ${colors.primary}`,
+              borderBottom: `1px solid ${colors.primary}`,
+              marginBottom: 14,
             }}
           >
             <thead>
