@@ -41,7 +41,7 @@ export default function Result() {
       return;
     }
     await html2canvas(input, {
-      scale: 1,
+      scale: 1.5,
       windowWidth: document.body.scrollWidth,
       windowHeight: document.body.scrollHeight,
     }).then((canvas) => {
