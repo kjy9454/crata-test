@@ -380,11 +380,8 @@ export default function Result() {
                           }}
                         >
                           <Icon iconName={"Round"} iconSize={12} />
-                          <Icon
-                            iconName={"RoundFilled"}
-                            iconSize={12}
-                            style={{ marginLeft: 6 }}
-                          />
+                          <div style={{ width: 6 }} />
+                          <Icon iconName={"RoundFilled"} iconSize={12} />
                         </div>
                         <span style={{ fontWeight: 500 }}>중심 역량</span>
                         <span style={{ fontSize: 12 }}>
@@ -428,11 +425,8 @@ export default function Result() {
                           }}
                         >
                           <Icon iconName={"Star"} iconSize={12} />
-                          <Icon
-                            iconName={"StarFilled"}
-                            iconSize={12}
-                            style={{ marginLeft: 6 }}
-                          />
+                          <div style={{ width: 6 }} />
+                          <Icon iconName={"StarFilled"} iconSize={12} />
                         </div>
                         <span style={{ fontWeight: 500 }}>핵심 역량</span>
                         <span style={{ fontSize: 12 }}>

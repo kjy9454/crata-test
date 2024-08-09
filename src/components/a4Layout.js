@@ -33,6 +33,7 @@ export default function A4Layout({ children, style, page }) {
                 borderTop: `1px solid ${colors.primary}`,
                 borderBottom: `1px solid ${colors.primary}`,
                 padding: "2px 6px",
+                boxSizing: "border-box",
               }}
             >
               <span
@@ -58,10 +59,13 @@ export default function A4Layout({ children, style, page }) {
                 borderBottom: `1px solid ${colors.primary}`,
                 padding: "6px 12px",
                 fontSize: 14,
+                boxSizing: "border-box",
               }}
             >
               · 홍길동(남00/세)
-              <span style={{ marginLeft: 14 }}>· 개인고유번호 : 00.00.00.</span>
+              <span style={{ paddingLeft: 14 }}>
+                · 개인고유번호 : 00.00.00.
+              </span>
             </div>
           </div>
         )}
@@ -73,6 +77,7 @@ export default function A4Layout({ children, style, page }) {
             borderTop: `1px solid ${colors.primary}`,
             padding: 10,
             width: "100%",
+            boxSizing: "border-box",
           }}
         >
           <span style={{ fontSize: 12 }}>

@@ -17,7 +17,7 @@ export default function Content({
         justifyContent: "space-between",
         width: "100%",
         border: `1px solid ${colors.primary}`,
-        margin: 16,
+        margin: "16px 0",
         ...style,
       }}
     >
@@ -38,7 +38,13 @@ export default function Content({
         </div>
         <span>{subTitle}</span>
       </div>
-      <div style={{ height: "100%", padding: 12, ...bodyStyle }}>
+      <div
+        style={{
+          height: "100%",
+          padding: 12,
+          ...bodyStyle,
+        }}
+      >
         {children}
       </div>
     </div>

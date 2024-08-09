@@ -6,38 +6,98 @@ export default function SelfAnalysis() {
   const [type, setType] = useState("H");
   const CATEGORY_LIST = [
     {
-      title: "성과만족방식",
-      leftType: { alphabet: "S", kr: "자기성장형", en: "elf-growth type" },
-      rightType: { alphabet: "G", kr: "조직성장형", en: "roup growh type" },
-      selectedType: ["S", "G"],
-    },
-    {
       title: "정보수집방식",
-      leftType: { alphabet: "I", kr: "직관형", en: "ntutive type" },
-      rightType: { alphabet: "E", kr: "경험형", en: "xperiential type" },
-      selectedType: ["E"],
+      leftType: {
+        alphabet: "I",
+        kr: "직관형",
+        en: "ntutive type",
+        level: 10,
+      },
+      rightType: {
+        alphabet: "E",
+        kr: "경험형",
+        en: "xperiential type",
+        level: 2,
+      },
     },
     {
       title: "능력표현방식",
-      leftType: { alphabet: "D", kr: "설계형", en: "esign type" },
-      rightType: { alphabet: "T", kr: "기술형", en: "echnical type" },
-      selectedType: [],
+      leftType: {
+        alphabet: "D",
+        kr: "설계형",
+        en: "esign type",
+        level: 1,
+      },
+      rightType: {
+        alphabet: "T",
+        kr: "기술형",
+        en: "echnical type",
+        level: 1,
+      },
     },
     {
       title: "목표실행방식",
-      leftType: { alphabet: "T", kr: "전술형", en: "actical type" },
-      rightType: { alphabet: "S", kr: "전략형", en: "trategic type" },
-      selectedType: ["S"],
+      leftType: {
+        alphabet: "T",
+        kr: "전술형",
+        en: "actical type",
+        level: 1,
+      },
+      rightType: {
+        alphabet: "S",
+        kr: "전략형",
+        en: "trategic type",
+        level: 1,
+      },
     },
     {
       title: "목적성취방식",
-      leftType: { alphabet: "T", kr: "과제형", en: "ask type" },
-      rightType: { alphabet: "R", kr: "관계형", en: "elational type" },
-      selectedType: [],
+      leftType: {
+        alphabet: "T",
+        kr: "과제형",
+        en: "ask type",
+        level: 1,
+      },
+      rightType: {
+        alphabet: "R",
+        kr: "관계형",
+        en: "eleational type",
+        level: 1,
+      },
+    },
+    {
+      title: "의사결정방식",
+      leftType: {
+        alphabet: "S",
+        kr: "혼자형",
+        en: "tand-alone type",
+        level: 1,
+      },
+      rightType: {
+        alphabet: "G",
+        kr: "그룹형",
+        en: "roup type",
+        level: 1,
+      },
+    },
+    {
+      title: "자기방어방식",
+      leftType: {
+        alphabet: "M",
+        kr: "지성형",
+        en: "ind-set type",
+        level: 1,
+      },
+      rightType: {
+        alphabet: "E",
+        kr: "감성형",
+        en: "motional type",
+        level: 1,
+      },
     },
   ];
 
-  const Item = ({ title, leftType, rightType, selectedType }) => {
+  const Item = ({ title, leftType, rightType, style }) => {
     return (
       <div
         style={{
@@ -46,88 +106,128 @@ export default function SelfAnalysis() {
           color: colors.navy,
           width: "100%",
           fontSize: 14,
+          marginTop: 14,
+          ...style,
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            borderRadius: 999,
-            border: `1px solid ${colors.primary}`,
-            justifyContent: "center",
-            position: "relative",
-            marginBottom: 4,
-            height: 34,
-            alignItems: "center",
-          }}
-        >
+        <div style={{ display: "flex", width: "100%" }}>
           <div
             style={{
               height: 40,
               width: 40,
               borderRadius: 999,
-              border: `1px solid ${
-                selectedType.includes(leftType.alphabet)
-                  ? colors.navy
-                  : "transparent"
-              }`,
-              position: "absolute",
-              left: 8,
-              top: -3,
               alignItems: "center",
               justifyContent: "center",
               display: "flex",
               fontSize: 20,
-              backgroundColor: selectedType.includes(leftType.alphabet)
-                ? "#fff"
-                : "transparent",
             }}
           >
             {leftType.alphabet}
           </div>
-          <span style={{ fontWeight: 600 }}>{title}</span>
+          <div
+            style={{
+              width: "100%",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                flex: 1,
+                borderRadius: 999,
+                border: `1px solid ${colors.primary}`,
+                justifyContent: "center",
+                position: "relative",
+                marginBottom: 4,
+                height: 34,
+                alignItems: "center",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  flex: 1,
+                  height: "100%",
+                  flexDirection: "row-reverse",
+                }}
+              >
+                {new Array(10).fill("").map((_, index) => (
+                  <div
+                    key={index}
+                    style={{
+                      backgroundColor:
+                        index > leftType.level - 1
+                          ? "transparent"
+                          : colors.primary,
+                      height: "100%",
+                      display: "flex",
+                      flex: 1,
+                      borderRight: `1px solid ${colors.primary}`,
+                      borderTopLeftRadius: index === 9 ? 18 : 0,
+                      borderBottomLeftRadius: index === 9 ? 18 : 0,
+                    }}
+                  />
+                ))}
+              </div>
+              <span style={{ fontWeight: 600, padding: "0 4px" }}>{title}</span>
+              <div
+                style={{
+                  display: "flex",
+                  flex: 1,
+                  height: "100%",
+                }}
+              >
+                {new Array(10).fill("").map((_, index) => (
+                  <div
+                    key={index}
+                    style={{
+                      backgroundColor:
+                        index > rightType.level - 1
+                          ? "transparent"
+                          : colors.primary,
+                      height: "100%",
+                      display: "flex",
+                      flex: 1,
+                      borderLeft: `1px solid ${colors.primary}`,
+                      borderTopRightRadius: index === 9 ? 18 : 0,
+                      borderBottomRightRadius: index === 9 ? 18 : 0,
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div style={{ display: "flex" }}>
+                <span style={{ fontWeight: 600, color: colors.gray }}>
+                  {leftType.kr}
+                </span>
+                <span style={{ display: "flex", color: colors.gray }}>
+                  (<span style={{ fontWeight: 600 }}>{leftType.alphabet}</span>
+                  {leftType.en})
+                </span>
+              </div>
+              <div style={{ display: "flex" }}>
+                <span style={{ fontWeight: 600, color: colors.gray }}>
+                  {rightType.kr}
+                </span>
+                <span style={{ display: "flex", color: colors.gray }}>
+                  (<span style={{ fontWeight: 600 }}>{rightType.alphabet}</span>
+                  {rightType.en})
+                </span>
+              </div>
+            </div>
+          </div>
           <div
             style={{
               height: 40,
               width: 40,
               borderRadius: 999,
-              border: `1px solid ${
-                selectedType.includes(rightType.alphabet)
-                  ? colors.navy
-                  : "transparent"
-              }`,
-              position: "absolute",
-              right: 8,
-              top: -3,
               alignItems: "center",
               justifyContent: "center",
               display: "flex",
               fontSize: 20,
-              backgroundColor: selectedType.includes(rightType.alphabet)
-                ? "#fff"
-                : "transparent",
             }}
           >
             {rightType.alphabet}
-          </div>
-        </div>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div style={{ display: "flex" }}>
-            <span style={{ fontWeight: 600, color: colors.gray }}>
-              {leftType.kr}
-            </span>
-            <span style={{ display: "flex", color: colors.gray }}>
-              (<p style={{ fontWeight: 600 }}>{leftType.alphabet}</p>
-              {leftType.en})
-            </span>
-          </div>
-          <div style={{ display: "flex" }}>
-            <span style={{ fontWeight: 600, color: colors.gray }}>
-              {rightType.kr}
-            </span>
-            <span style={{ display: "flex", color: colors.gray }}>
-              (<p style={{ fontWeight: 600 }}>{rightType.alphabet}</p>
-              {rightType.en})
-            </span>
           </div>
         </div>
       </div>
@@ -142,12 +242,12 @@ export default function SelfAnalysis() {
         alignItems: "center",
         flexDirection: "column",
         fontSize: 16,
-        padding: "14px 60px",
+        padding: "0px 40px",
         justifyContent: "space-between",
       }}
     >
       {CATEGORY_LIST.map((item, index) => (
-        <Item key={index} {...item} />
+        <Item key={index} style={{ marginTop: index ? 14 : 0 }} {...item} />
       ))}
     </div>
   );
